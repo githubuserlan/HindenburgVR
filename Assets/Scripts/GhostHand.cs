@@ -17,7 +17,8 @@ public class GhostHand : MonoBehaviour
         FakeHandTransform = FakeHand.transform;
     }
 
-    private void OnTriggerEnter(Collider other)
+    //private void OnTriggerEnter(Collider other)
+    void FixedUpdate()
     {
         FakeHandTransform.position = RealHandTrans.position;
         FakeHandTransform.rotation = RealHandTrans.rotation;

@@ -336,7 +336,8 @@ MonoBehaviour:
   m_SmoothMovement: 0
   m_FollowTightness: 10
   m_SnapThresholdDistance: 10
-  m_Reticle: {fileID: 0}
+  m_Reticle: {fileID: 2235117744910732819, guid: 14e7e3c891e0d55479bb9d8aab4ff3dd,
+    type: 3}
   m_StopLineAtFirstRaycastHit: 1
 --- !u!114 &1436947627746976897
 MonoBehaviour:
@@ -351,7 +352,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ScriptHolder: {fileID: 1436947627746976923}
-  Reticle: {fileID: 0}
+  Reticle: {fileID: 2235117744910732819, guid: 14e7e3c891e0d55479bb9d8aab4ff3dd, type: 3}
 --- !u!1 &1436947627757700787
 GameObject:
   m_ObjectHideFlags: 0
@@ -487,7 +488,8 @@ MonoBehaviour:
   teleportActivationButton: 14
   activationThresholt: 0.4
   m_Rigidbody: {fileID: 0}
-  Tp_Reticle: {fileID: 0}
+  Tp_Reticle: {fileID: 2235117744910732819, guid: 14e7e3c891e0d55479bb9d8aab4ff3dd,
+    type: 3}
 --- !u!114 &1436947628582466924
 MonoBehaviour:
   m_ObjectHideFlags: 0

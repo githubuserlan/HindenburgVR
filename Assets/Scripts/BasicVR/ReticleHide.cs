@@ -16,8 +16,8 @@ public class ReticleHide : MonoBehaviour
     void FixedUpdate()
     {
         if (ScriptHolder.active)
-        { Reticle.SetActive(false); }
+        { Reticle.SetActive(true); }
         else { 
-            Reticle.SetActive(true); }
+            Reticle.SetActive(false); }
     }
 }
