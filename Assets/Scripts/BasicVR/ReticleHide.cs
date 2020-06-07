@@ -4,20 +4,17 @@ using UnityEngine;
 
 public class ReticleHide : MonoBehaviour
 {
-    public GameObject ScriptHolder;
-    public GameObject Reticle;
-    // Start is called before the first frame update
-    void Start()
-    {
-        ScriptHolder = this.gameObject;
-    }
+    public GameObject Recticle;
+    public GameObject Laser;
 
-    // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
-        if (ScriptHolder.active)
-        { Reticle.SetActive(true); }
-        else { 
-            Reticle.SetActive(false); }
+        if (Laser.activeInHierarchy == true)
+        { Recticle.SetActive(true); 
+            Debug.Log("Tut");
+        }
+        else
+        { Recticle.SetActive(false); }
+
     }
 }

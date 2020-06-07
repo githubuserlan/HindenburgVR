@@ -351,8 +351,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9194761f8321a348909acb3231602e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScriptHolder: {fileID: 1436947627746976923}
-  Reticle: {fileID: 2235117744910732819, guid: 14e7e3c891e0d55479bb9d8aab4ff3dd, type: 3}
+  Recticle: {fileID: 0}
+  Laser: {fileID: 0}
 --- !u!1 &1436947627757700787
 GameObject:
   m_ObjectHideFlags: 0

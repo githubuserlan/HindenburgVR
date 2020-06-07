@@ -17,13 +17,15 @@ public class GhostHand : MonoBehaviour
         FakeHandTransform = FakeHand.transform;
     }
 
-    //private void OnTriggerEnter(Collider other)
-    void FixedUpdate()
+    private void OnTriggerEnter(Collider other)
     {
-        FakeHandTransform.position = RealHandTrans.position;
-        FakeHandTransform.rotation = RealHandTrans.rotation;
-        FakeHand.SetActive(true);
-        Debug.Log("IsGhist");
+        if (other.gameObject.layer != LayerMask.NameToLayer("Grab"))
+        {
+            FakeHandTransform.position = RealHandTrans.position;
+            FakeHandTransform.eulerAngles = RealHandTrans.eulerAngles;
+            FakeHand.SetActive(true);
+            Debug.Log("IsGhost");
+        }
     }
     private void OnTriggerExit(Collider other)
     {
