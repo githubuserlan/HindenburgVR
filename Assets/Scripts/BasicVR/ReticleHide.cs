@@ -10,7 +10,8 @@ public class ReticleHide : MonoBehaviour
     void Update()
     {
         if (Laser.activeInHierarchy == true)
-        { Recticle.SetActive(true); 
+        {
+            Recticle.SetActive(true);
             Debug.Log("Tut");
         }
         else
