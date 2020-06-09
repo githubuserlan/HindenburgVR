@@ -23,17 +23,9 @@ public class GravityGlovesXR : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+    }
 
-    }
-    private void Update()
-    {
-        rotationControllerBuffer = rightRay.transform.eulerAngles;
-        //check for controller flip
-        if (rightRay.transform.eulerAngles.x >= rotationControllerBuffer.x + 45)
-        {
-            Debug.Log("Flip");
-        }
-    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
