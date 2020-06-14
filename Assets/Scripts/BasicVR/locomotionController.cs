@@ -5,6 +5,11 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class locomotionController : MonoBehaviour
 {
+    /// <summary>
+    /// Dieses Script ist für die Teleportation
+    /// </summary>
+
+
     public XRController leftTeleportRay;
     public XRController rightTeleportRay;
     public InputHelpers.Button teleportActivationButton;

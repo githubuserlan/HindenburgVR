@@ -5,6 +5,11 @@ using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
 public class ContinousMovement : MonoBehaviour
 {
+
+    /// <summary>
+    /// Dieses Script ist für die Bewegung mit dem Stick
+    /// </summary>
+
     public float speed = 1;
     public XRNode InputSource;
 
