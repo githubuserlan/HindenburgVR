@@ -1,14 +1,22 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Shatter : MonoBehaviour
 {
     public GameObject destroyedVersion;
+    public float speed;
+    public float DestroySpeed;
+    public bool SpeedIsThere;
 
+
+    private void Start()
+    {
+    }
     private void OnCollisionEnter(Collision collision)
     {
-        if(gameObject.GetComponent<Rigidbody>().velocity.magnitude < 2)
+        if (SpeedIsThere)
         {
             Instantiate(destroyedVersion, transform.position, transform.rotation);
             Destroy(gameObject);
@@ -17,6 +25,10 @@ public class Shatter : MonoBehaviour
 
     private void Update()
     {
-        //Debug.Log(this.gameObject.name + " velocity is " + this.gameObject.GetComponent<Rigidbody>().velocity.magnitude);
+        speed = this.GetComponent<Rigidbody>().velocity.magnitude;
+        if (speed>DestroySpeed)
+        { SpeedIsThere = true;
+            Debug.Log("SpeedisThere"); }
+        else { SpeedIsThere = false; }
     }
 }
