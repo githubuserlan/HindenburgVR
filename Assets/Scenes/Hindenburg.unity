@@ -419,6 +419,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1361835583}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1333500521 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1436947629540848297, guid: f2e9cd8141c2009488f2b24546b16b3c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1361835583}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1333500517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ae26e19cd956134bbdf3c6f65bf393a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1333500522
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -431,6 +443,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1317f9ca9410484a86f1e7cdb3be2d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leftRay: {fileID: 0}
+  rightRay: {fileID: 1333500521}
+  activationButton: 0
+  Power: 1
+  interactionRayLength: 3.56
+  materialOfObject: {fileID: 0}
+  targetMaterial: {fileID: 0}
 --- !u!120 &1333500523
 LineRenderer:
   m_ObjectHideFlags: 0

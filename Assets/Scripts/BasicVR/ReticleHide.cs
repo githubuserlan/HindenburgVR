@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class ReticleHide : MonoBehaviour
 {
+
+    /// <summary>
+    /// Dieses Script ist für das darstellen und verstecken des Reticle;
+    /// </summary>
     public GameObject Recticle;
     public GameObject Laser;
 
@@ -12,7 +16,6 @@ public class ReticleHide : MonoBehaviour
         if (Laser.activeInHierarchy == true)
         {
             Recticle.SetActive(true);
-            Debug.Log("Tut");
         }
         else
         { Recticle.SetActive(false); }
