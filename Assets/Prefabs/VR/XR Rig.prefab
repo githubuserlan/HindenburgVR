@@ -347,6 +347,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1436947627757700788}
+  - component: {fileID: 393523694693555735}
   m_Layer: 0
   m_Name: Camera Offset
   m_TagString: Untagged
@@ -373,6 +374,21 @@ Transform:
   m_Father: {fileID: 1436947628582466919}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &393523694693555735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1436947627757700787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9194761f8321a348909acb3231602e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Recticle: {fileID: 2235117744910732819, guid: 14e7e3c891e0d55479bb9d8aab4ff3dd,
+    type: 3}
+  Laser: {fileID: 1436947627746976923}
 --- !u!1 &1436947628582466917
 GameObject:
   m_ObjectHideFlags: 0
