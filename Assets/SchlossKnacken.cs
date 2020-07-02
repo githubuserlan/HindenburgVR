@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Security.AccessControl;
 using UnityEngine;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction;
@@ -14,7 +16,9 @@ public class SchlossKnacken : MonoBehaviour
     public GameObject dietrich;
     Vector3 handRot;
     bool dietrichgrabed;
-    
+    public GameObject spawnObject;
+
+    public bool spawnedHands =false;
 
     // Start is called before the first frame update
     void Start()
@@ -46,14 +50,32 @@ public class SchlossKnacken : MonoBehaviour
 
         if (dietrichgrabed == true && grabHand.GetComponent<Inventory>().gripButtonAction == true)
         {
-            grabHand.GetComponent<XRDirectInteractor>().enabled = false;
-            grabHand.transform.position = dietrich.transform.position;
-            handRot = grabHand.transform.eulerAngles;
-            Debug.Log("handrot is " + handRot);
+            if (spawnedHands == false)
+            {
+                grabHand.transform.position = dietrich.transform.position;
+                spawnObject = Instantiate(grabHand);
+                spawnedHands = true;
+                Destroy(spawnObject.transform.GetChild(1).gameObject);
+                Debug.Log("Spawned a Hand");
+            }
+            grabHand.GetComponent<XRController>().enabled = false;
+            handRot = spawnObject.transform.eulerAngles;
+            Debug.Log("HandRotation is " + handRot);
         }
         else
         {
-            grabHand.GetComponent<XRDirectInteractor>().enabled = true;
+            if(spawnObject!=null)
+            {
+               for(int i =0; i<=spawnObject.transform.childCount; i++)
+                {
+                    spawnObject.transform.GetChild(0);
+                    i--;
+                }
+                grabHand.GetComponent<XRController>().enabled = true;
+                Destroy(spawnObject);
+                spawnedHands = false;
+                Debug.Log("Destroyed a Hand");
+            }
         }
     }
 }
