@@ -15,6 +15,7 @@ public class CollisionTest : MonoBehaviour
     private List<InputDevice> devices = new List<InputDevice>();
     private InputDevice device;
     public bool gripButtonAction;
+    bool takenSpawnedObject;
     public GameObject leftInventoryPlace;
     public GameObject rightInventoryPlace;
     public List<GameObject> preFabInventoryItems;
@@ -58,6 +59,15 @@ public class CollisionTest : MonoBehaviour
         {
             gripButtonAction = true;
         }
+        if (takenSpawnedObject == true)
+        {
+            if (spawnObject != null)
+            {
+                spawnObject.GetComponent<Rigidbody>().isKinematic = false; //aktiviere gravitation
+                spawnObject.transform.parent = null; //ist kein child der Tasche mehr
+
+            }
+        }
     }
 
     public GameObject HitObject;
@@ -76,11 +86,9 @@ public class CollisionTest : MonoBehaviour
         //Objekt ins Inventar legen:
         if (collider.gameObject.layer == 13) //Wenn Hand mit einer Tasche collided
         {
-            
-
-
             if (rightInventoryPlace == null && HitObject != null) // und die Tasche leer ist sowie man hat etwas in der Hand
             {
+                takenSpawnedObject = false;
                 for (int i = 0; i < preFabInventoryItems.Count; i++) //suche nach gegriffenem Objekt in List
                 {
                     if (preFabInventoryItems[i].name == ObjectName) //suche nach Prefab in der Liste anhand des Namens
@@ -90,13 +98,14 @@ public class CollisionTest : MonoBehaviour
                         Destroy(HitObject); //Objekt wird zerstörrt
                         HitObject = null; // kein Objekt mehr in der Hand
                         needToLeave = true;
+                        Debug.Log("Destory");
                         break;
                     }
                 }
             }
 
             //greifen aus dem Inventar bzw das erscheinen des Objekts, wenn man mit der Hand zum Inventar geht
-            if (HitObject == null && rightInventoryPlace != null) //wenn das Inventar bestückt ist und kein objekt gegriffen ist
+            if (HitObject == null && rightInventoryPlace != null && needToLeave == false) //wenn das Inventar bestückt ist und kein objekt gegriffen ist
             {
                 if (rightBag.transform.childCount <= 1) // und maximal 1 Objekt als Child da ist (wegen bugs)
                 {
@@ -107,24 +116,8 @@ public class CollisionTest : MonoBehaviour
                     spawnObject.transform.localScale = new Vector3(1f, 1f, 1f); // und ist während dem schweben kleiner
                     spawnObject.transform.localEulerAngles = new Vector3(0, 0, 0); // und richtig rotiert
                     spawnObject.GetComponent<Rigidbody>().isKinematic = true; // und die Gravity wird deaktiviert, damit das Objekt nicht direkt auf den Boden fällt
-                    rightInventoryPlace = null; //Inventar ist dann leer;
                 }
             }
-
-            if (needToLeave != true)
-            {
-
-                { // wenn das Objekt aus dem Inventar gezogen wird
-                    if (gripButtonAction == true)
-                    {
-                        spawnObject.GetComponent<Rigidbody>().isKinematic = false; //aktiviere gravitation
-                        spawnObject.transform.parent = null; //ist kein child der Tasche mehr
-                        spawnObject.transform.localScale = ObjectScale; //skalierung wird wieder zurück gestellt, wie es vor einlegen in die Tasche war.
-                        Debug.Log("Done");
-                    }
-                }
-            }
-
         }
     }
 
@@ -134,17 +127,30 @@ public class CollisionTest : MonoBehaviour
         if (collider.gameObject.layer == 8)
             if (gripButtonAction == false)
             {
-                //HitObject = null;
+                HitObject = null;
             }
         if (collider.gameObject.layer == 13)
         {
-        }
+            if (needToLeave == true)
+            {
+                needToLeave = false;
+                Debug.Log("aus dem Inventar gegangen");
+            }
 
+            { // wenn das Objekt aus dem Inventar gezogen wird
+                if (needToLeave == false && rightInventoryPlace!=null)
+                {
+                    if (gripButtonAction == true)
+                    {
+                        rightInventoryPlace = null; //Inventar ist dann leer;
+                        ObjectName = null;
+                        takenSpawnedObject = true;
+                        spawnObject.transform.localScale = ObjectScale; //skalierung wird wieder zurück gestellt, wie es vor einlegen in die Tasche war.
+                        Debug.Log("Done");
+                    }
+                }
+            }
 
-        if (needToLeave == true)
-        {
-            needToLeave = false;
-            Debug.Log("aus dem Inventar gegangen");
         }
     }
 }
