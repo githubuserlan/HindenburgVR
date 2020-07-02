@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.XR;
-using System.Linq;
 
 
 public class CollisionTest : MonoBehaviour
@@ -65,7 +64,7 @@ public class CollisionTest : MonoBehaviour
             {
                 spawnObject.GetComponent<Rigidbody>().isKinematic = false; //aktiviere gravitation
                 spawnObject.transform.parent = null; //ist kein child der Tasche mehr
-
+                //StartCoroutine(ExampleCoroutine());
             }
         }
     }
@@ -86,9 +85,9 @@ public class CollisionTest : MonoBehaviour
         //Objekt ins Inventar legen:
         if (collider.gameObject.layer == 13) //Wenn Hand mit einer Tasche collided
         {
+            takenSpawnedObject = false;
             if (rightInventoryPlace == null && HitObject != null) // und die Tasche leer ist sowie man hat etwas in der Hand
             {
-                takenSpawnedObject = false;
                 for (int i = 0; i < preFabInventoryItems.Count; i++) //suche nach gegriffenem Objekt in List
                 {
                     if (preFabInventoryItems[i].name == ObjectName) //suche nach Prefab in der Liste anhand des Namens
@@ -131,19 +130,12 @@ public class CollisionTest : MonoBehaviour
             }
         if (collider.gameObject.layer == 13)
         {
-            if (needToLeave == true)
-            {
-                needToLeave = false;
-                Debug.Log("aus dem Inventar gegangen");
-            }
-
             { // wenn das Objekt aus dem Inventar gezogen wird
-                if (needToLeave == false && rightInventoryPlace!=null)
+                if (needToLeave == false && rightInventoryPlace != null)
                 {
                     if (gripButtonAction == true)
                     {
                         rightInventoryPlace = null; //Inventar ist dann leer;
-                        ObjectName = null;
                         takenSpawnedObject = true;
                         spawnObject.transform.localScale = ObjectScale; //skalierung wird wieder zurück gestellt, wie es vor einlegen in die Tasche war.
                         Debug.Log("Done");
@@ -151,6 +143,20 @@ public class CollisionTest : MonoBehaviour
                 }
             }
 
+            if (needToLeave == true)
+            {
+                needToLeave = false;
+                Debug.Log("aus dem Inventar gegangen");
+            }
         }
     }
+
+
+    IEnumerator ExampleCoroutine()
+    {
+        //yield on a new YieldInstruction that waits for 5 seconds.
+        yield return new WaitForSeconds(1);
+        spawnObject = null;
+    }
+
 }
