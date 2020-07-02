@@ -53,9 +53,12 @@ public class GravityGlovesXR : MonoBehaviour
                 //check if activationbutton is active
                 //if ()
                 //{
-                    //change color of hitobject
+                //change color of hitobject
+                if (hitGameobject.GetComponent<Renderer>() != null)
+                {
                     hitGameobject.GetComponent<Renderer>().material = targetMaterial;
-                    //save Rotation of controller
+                }
+                //save Rotation of controller
                     rotationControllerBuffer = rightRay.transform.eulerAngles;
                     //check for controller flip
                     //if (rightRay.transform.eulerAngles.x >= rotationControllerBuffer.x + 45)

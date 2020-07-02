@@ -20,6 +20,7 @@ public class Shatter : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if(collision.gameObject.GetComponent<Rigidbody>() != null)
         //Check if Speed of Colliding Object is high enough
         if (SpeedIsThere || (collision.gameObject.GetComponent<Rigidbody>().velocity.magnitude > DestroySpeed && collision.gameObject.layer == 8/*collision.collider.gameObject.layer == LayerMask.NameToLayer("Grab")*/ ))
         {

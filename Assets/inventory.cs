@@ -5,10 +5,6 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class inventory : MonoBehaviour
 {
-
-    public GameObject handObject = null;
-    public XRDirectInteractor interactor = null;
-
     // 
     /// <summary>
     /// Wenn Objekt in Inventar geht, dann soll
@@ -17,8 +13,9 @@ public class inventory : MonoBehaviour
     /// 3. Falls Inventar voll ist, dann soll: UI erscheinen
     /// 4. Griff ins Inventar holt Objekt wieder raus
     /// </summary>
-
+    public XRDirectInteractor interactor;
     Collider Collider;
+    public GameObject GrabedObject;
 
     // Start is called before the first frame update
     void Start()
@@ -26,27 +23,38 @@ public class inventory : MonoBehaviour
         Collider = this.gameObject.GetComponent<Collider>();
     }
 
+    //private void OnEnable()
+    //{
+    //    interactor.onSelectEnter.AddListener(Grabed);
+    //    Debug.Log("Grab");
+    //    GrabedObject = this.selectTarget.gameObject;
+
+    //    Debug.Log(selectTarget);
+    //    //Objects = XRBaseInteractor.GetValidTargets(List<XRBaseInteractable>);
+    //}
 
 
-    private void OnEnable()
+    public XRBaseInteractable selectTarget { get; }
+
+    //private void Grabed(XRBaseInteractable interactable)
+    //{
+
+    //}
+
+    private void OnCollisionEnter(Collision collision)
     {
-        interactor.onSelectEnter.AddListener(Grabed);
-        Debug.Log("Grab");
-    }
-    private void OnDisable()
-    {
-     
+        if(collision.gameObject.layer == 8)
+        {
+            Debug.Log("Test");
+        }
     }
 
-    private void Grabed(XRBaseInteractable interactable)
-    {
-        
-    }
+
 
 
     // Update is called once per frame
     void Update()
     {
-        
+        //Debug.Log(selectTarget.GetComponent<XRGrabInteractable>());
     }
 }
