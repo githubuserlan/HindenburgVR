@@ -125,7 +125,7 @@ public class SchlossKnacken : MonoBehaviour
             else
             { triggerLevel2 = false; }
 
-            if (Pivot.transform.eulerAngles.x < 100 && Pivot.transform.eulerAngles.x > 110 && Level1 == true && Level2 == true)
+            if (Pivot.transform.localEulerAngles.x < 100 && Pivot.transform.eulerAngles.x > 120 && Level1 == true && Level2 == true && Level3==false)
             {
                 if (triggerLevel3 == false)
                 {
@@ -163,7 +163,7 @@ public class SchlossKnacken : MonoBehaviour
     IEnumerator FirstClick()
     {
         yield return new WaitForSeconds(1);
-        if (Pivot.transform.localEulerAngles.x < 125 && Pivot.transform.eulerAngles.x > 132.5f)
+        if (Pivot.transform.localEulerAngles.x < 125 && Pivot.transform.eulerAngles.x > 132.5f && dietrichgrabed == true)
         {
             Debug.Log("Level1 Done");
            yield return Level1 = true;
@@ -173,19 +173,19 @@ public class SchlossKnacken : MonoBehaviour
 
     IEnumerator SecondClick()
     {
-        yield return new WaitForSeconds(2);
-        if (Pivot.transform.eulerAngles.x < 65 && Pivot.transform.eulerAngles.x > 55)
+        yield return new WaitForSeconds(1);
+        if (Pivot.transform.eulerAngles.x < 65 && Pivot.transform.eulerAngles.x > 55 && dietrichgrabed == true)
         {
             Debug.Log("Level2 Done");
-           yield return Level2 = true;
+            yield return Level2 = true;
             levelDone.Play();
         }
     }
 
     IEnumerator ThirdClick()
     {
-        yield return new WaitForSeconds(2);
-        if (Pivot.transform.eulerAngles.x > 110 && Pivot.transform.eulerAngles.x < 100)
+        yield return new WaitForSeconds(1);
+        if (Pivot.transform.localEulerAngles.x < 100 && Pivot.transform.eulerAngles.x > 120 && dietrichgrabed == true)
         {
             Debug.Log("Level3 Done");
             Level3 = true;

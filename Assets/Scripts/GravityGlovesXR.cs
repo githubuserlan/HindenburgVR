@@ -63,7 +63,6 @@ public class GravityGlovesXR : MonoBehaviour
                     //check for controller flip
                     //if (rightRay.transform.eulerAngles.x >= rotationControllerBuffer.x + 45)
                     //{
-                        Debug.Log("Flip");
                         //move object to player with force
                         Rigidbody hitRigidBody = hitGameobject.gameObject.GetComponent<Rigidbody>();
                         hitRigidBody.AddForce(transform.forward * -1 * Power, ForceMode.Impulse);

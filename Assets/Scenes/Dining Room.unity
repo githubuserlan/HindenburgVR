@@ -557,8 +557,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.07, y: 0.15, z: 0.13}
-  m_Center: {x: 0.01, y: -0.04, z: 0}
+  m_Size: {x: 0.13, y: 0.16, z: 0.22}
+  m_Center: {x: 0.01, y: -0.04, z: -0.03}
 --- !u!114 &134705522
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -838,6 +838,10 @@ MonoBehaviour:
     type: 3}
   Camera: {fileID: 1695915903}
   Pivot: {fileID: 508416483}
+  Level1: 0
+  Level2: 0
+  Level3: 0
+  triggerLevel1: 0
   minRot: 0
   maxRot: 0
   gotRight: {fileID: 183155542}
@@ -1245,8 +1249,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.07, y: 0.15, z: 0.13}
-  m_Center: {x: 0.01, y: -0.04, z: 0}
+  m_Size: {x: 0.13, y: 0.16, z: 0.22}
+  m_Center: {x: 0.01, y: -0.04, z: -0.03}
 --- !u!114 &248180725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1259,11 +1263,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b18052f887001c044b45c15315abc138, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xrNode: 4
+  xrNode: 5
   gripButtonAction: 0
   leftInventoryPlace: {fileID: 0}
   rightInventoryPlace: {fileID: 0}
-  preFabInventoryItems: []
+  preFabInventoryItems:
+  - {fileID: 5607138938447670281, guid: 91f7120daf12a6f4c87a75be611758a9, type: 3}
+  - {fileID: 347953179338115407, guid: 5765638cd61156e42a4f6028ca99508d, type: 3}
   ObjectName: 
   leftBag: {fileID: 290061601}
   rightBag: {fileID: 21672771}

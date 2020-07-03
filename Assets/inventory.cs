@@ -44,6 +44,7 @@ public class Inventory : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log(ObjectScale);
         if (!device.isValid)
         {
             GetDevice();
@@ -60,6 +61,7 @@ public class Inventory : MonoBehaviour
                 spawnObject.GetComponent<Rigidbody>().isKinematic = false; //aktiviere gravitation
                 spawnObject.transform.parent = null; //ist kein child der Tasche mehr
                 //StartCoroutine(ExampleCoroutine());
+                spawnObject.transform.localScale = ObjectScale; //skalierung wird wieder zurück gestellt, wie es vor einlegen in die Tasche war.
             }
         }
     }
@@ -132,7 +134,6 @@ public class Inventory : MonoBehaviour
                     {
                         rightInventoryPlace = null; //Inventar ist dann leer;
                         takenSpawnedObject = true;
-                        spawnObject.transform.localScale = ObjectScale; //skalierung wird wieder zurück gestellt, wie es vor einlegen in die Tasche war.
                         Debug.Log("Done");
                     }
                 }
