@@ -25,15 +25,21 @@ public class SchlossKnacken : MonoBehaviour
 
 
 
-    bool Level1 = false;
-    bool Level2 = false;
-    bool Level3 = false;
+    public bool Level1 = false;
+    public bool Level2 = false;
+    public bool Level3 = false;
+
+    public bool triggerLevel1;
+    bool triggerLevel2;
+        bool triggerLevel3;
 
     public float minRot;
     public float maxRot;
 
+    public AudioSource gotRight;
+    public AudioSource levelDone;
 
-    public bool spawnedHands =false;
+    public bool spawnedHands = false;
 
     // Start is called before the first frame update
     void Start()
@@ -72,7 +78,7 @@ public class SchlossKnacken : MonoBehaviour
             savedPosition = grabHand.transform.position;
             grabHand.transform.parent = Pivot.transform;
             Pivot.transform.eulerAngles = new Vector3(handRot.x, 0, 0);
-        } 
+        }
         else
         {
             if (spawnObject != null)
@@ -90,56 +96,78 @@ public class SchlossKnacken : MonoBehaviour
         }
 
 
-        if(dietrichgrabed==true)
+        if (dietrichgrabed == true)
         {
-            if (Pivot.transform.localEulerAngles.x < 125 && Pivot.transform.eulerAngles.x > 132.5f && Level1 == false && Level2==false && Level3 == false)
+            if (Pivot.transform.localEulerAngles.x < 125 && Pivot.transform.eulerAngles.x > 132.5f && Level1 == false && Level2 == false && Level3 == false)
             {
-                Debug.Log("Click1");
-                this.GetComponent<AudioSource>().Play();
-                StartCoroutine(FirstClick());
+                if (triggerLevel1 == false)
+                {
+                    Debug.Log("Click1");
+                    gotRight.Play();
+                    StartCoroutine(FirstClick());
+                    triggerLevel1 = true;
+                }
+                
             }
+            else
+            { triggerLevel1 = false; }
 
-            if (Pivot.transform.eulerAngles.x < 65 && Pivot.transform.eulerAngles.x > 55 && Level1 ==true && Level2==false && Level3 == false)
+            if (Pivot.transform.eulerAngles.x < 65 && Pivot.transform.eulerAngles.x > 55 && Level1 == true && Level2 == false && Level3 == false)
             {
-                Debug.Log("Click2");
-                StartCoroutine(SecondClick());
+                if (triggerLevel2 == false)
+                {
+                    Debug.Log("Click2");
+                    gotRight.Play();
+                    StartCoroutine(SecondClick());
+                    triggerLevel2 = true;
+                }
             }
+            else
+            { triggerLevel2 = false; }
 
-            if (Pivot.transform.eulerAngles.x > 100 && Pivot.transform.eulerAngles.x < 100 && Level1 == true && Level2 == true && Level3 == false)
+            if (Pivot.transform.eulerAngles.x < 100 && Pivot.transform.eulerAngles.x > 110 && Level1 == true && Level2 == true)
             {
-                Debug.Log("Click3");
-                StartCoroutine(ThirdClick());
+                if (triggerLevel3 == false)
+                {
+                    Debug.Log("Click3");
+                    gotRight.Play();
+                    StartCoroutine(ThirdClick());
+                    triggerLevel3 = true;
+                }
             }
+            else
+            { triggerLevel3 = false; }
 
-            if(Level3==true)
+            if (Level3 == true)
             {
                 Debug.Log("Schloss geknackt");
             }
         }
 
 
-        if (Pivot.transform.localEulerAngles.x < minRot)
-        {
-            Pivot.transform.localEulerAngles = new Vector3(minRot, 0, 0);
-            Debug.Log("PlacedLow");
-        }
+        //if (Pivot.transform.localEulerAngles.x < minRot)
+        //{
+        //    Pivot.transform.localEulerAngles = new Vector3(minRot, 0, 0);
+        //    Debug.Log("PlacedLow");
+        //}
 
-        if (Pivot.transform.eulerAngles.x > maxRot)
-        {
-            Pivot.transform.eulerAngles = new Vector3(maxRot, 0, 0);
-            Debug.Log("PlacedHigh");
-        }
+        //if (Pivot.transform.eulerAngles.x > maxRot)
+        //{
+        //    Pivot.transform.eulerAngles = new Vector3(maxRot, 0, 0);
+        //    Debug.Log("PlacedHigh");
+        //}
 
         //Debug.Log(Pivot.transform.eulerAngles.x);
     }
 
     IEnumerator FirstClick()
     {
-        yield return new WaitForSeconds(2);
-        if (Pivot.transform.eulerAngles.x < 125 && Pivot.transform.eulerAngles.x > 132.5f)
+        yield return new WaitForSeconds(1);
+        if (Pivot.transform.localEulerAngles.x < 125 && Pivot.transform.eulerAngles.x > 132.5f)
         {
             Debug.Log("Level1 Done");
-            Level1 = true;
+           yield return Level1 = true;
+            levelDone.Play();
         }
     }
 
@@ -149,17 +177,19 @@ public class SchlossKnacken : MonoBehaviour
         if (Pivot.transform.eulerAngles.x < 65 && Pivot.transform.eulerAngles.x > 55)
         {
             Debug.Log("Level2 Done");
-            Level2 = true;
+           yield return Level2 = true;
+            levelDone.Play();
         }
     }
 
     IEnumerator ThirdClick()
     {
         yield return new WaitForSeconds(2);
-        if (Pivot.transform.eulerAngles.x > 100 && Pivot.transform.eulerAngles.x < 100)
+        if (Pivot.transform.eulerAngles.x > 110 && Pivot.transform.eulerAngles.x < 100)
         {
-            Debug.Log("Level2 Done");
+            Debug.Log("Level3 Done");
             Level3 = true;
+            levelDone.Play();
         }
     }
 }

@@ -16,12 +16,12 @@ public class AttachTransform : MonoBehaviour
     void Start()
     {
         Pivot = this.gameObject.transform.GetChild(0).gameObject;
+        ObjectGrabed = this.GetComponent<Inventory>().HitObject;
     }
 
     // Update is called once per frame
     void Update()
     {
-        ObjectGrabed = this.GetComponent<Inventory>().HitObject;
         if (ObjectGrabed != null && ObjectGrabed.GetComponent<XRGrabInteractable>()!=null)
         {
             ObjectGrabed.GetComponent<XRGrabInteractable>().attachTransform = Pivot.transform;

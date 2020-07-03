@@ -840,6 +840,8 @@ MonoBehaviour:
   Pivot: {fileID: 508416483}
   minRot: 0
   maxRot: 0
+  gotRight: {fileID: 183155542}
+  levelDone: {fileID: 183155541}
   spawnedHands: 0
 --- !u!82 &183155541
 AudioSource:
