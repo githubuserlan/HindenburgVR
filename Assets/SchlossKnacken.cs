@@ -22,7 +22,7 @@ public class SchlossKnacken : MonoBehaviour
     Vector3 zeroVector3;
     public GameObject Camera;
     public GameObject Pivot;
-
+    public GameObject drehgelenk;
 
 
     public bool Level1 = false;
@@ -31,7 +31,7 @@ public class SchlossKnacken : MonoBehaviour
 
     public bool triggerLevel1;
     bool triggerLevel2;
-        bool triggerLevel3;
+    bool triggerLevel3;
 
     public float minRot;
     public float maxRot;
@@ -77,7 +77,7 @@ public class SchlossKnacken : MonoBehaviour
             handRot.x = spawnObject.transform.eulerAngles.x;
             savedPosition = grabHand.transform.position;
             grabHand.transform.parent = Pivot.transform;
-            Pivot.transform.eulerAngles = new Vector3(handRot.x, 0, 0);
+            Pivot.transform.eulerAngles = new Vector3(handRot.x, handRot.y, 0);
         }
         else
         {
@@ -107,7 +107,7 @@ public class SchlossKnacken : MonoBehaviour
                     StartCoroutine(FirstClick());
                     triggerLevel1 = true;
                 }
-                
+
             }
             else
             { triggerLevel1 = false; }
@@ -125,7 +125,7 @@ public class SchlossKnacken : MonoBehaviour
             else
             { triggerLevel2 = false; }
 
-            if (Pivot.transform.localEulerAngles.x < 100 && Pivot.transform.eulerAngles.x > 120 && Level1 == true && Level2 == true && Level3==false)
+            if (Pivot.transform.localEulerAngles.x < 100 && Pivot.transform.eulerAngles.x > 120 && Level1 == true && Level2 == true && Level3 == false)
             {
                 if (triggerLevel3 == false)
                 {
@@ -145,13 +145,13 @@ public class SchlossKnacken : MonoBehaviour
         }
 
 
-        //if (Pivot.transform.localEulerAngles.x < minRot)
+        //if (Pivot.transform.localEulerAngles.y < minRot)
         //{
         //    Pivot.transform.localEulerAngles = new Vector3(minRot, 0, 0);
         //    Debug.Log("PlacedLow");
         //}
 
-        //if (Pivot.transform.eulerAngles.x > maxRot)
+        //if (Pivot.transform.eulerAngles.y > maxRot)
         //{
         //    Pivot.transform.eulerAngles = new Vector3(maxRot, 0, 0);
         //    Debug.Log("PlacedHigh");
@@ -166,7 +166,8 @@ public class SchlossKnacken : MonoBehaviour
         if (Pivot.transform.localEulerAngles.x < 125 && Pivot.transform.eulerAngles.x > 132.5f && dietrichgrabed == true)
         {
             Debug.Log("Level1 Done");
-           yield return Level1 = true;
+            yield return Level1 = true;
+            drehgelenk.transform.localEulerAngles = new Vector3 (0,60,0);
             levelDone.Play();
         }
     }
@@ -178,6 +179,7 @@ public class SchlossKnacken : MonoBehaviour
         {
             Debug.Log("Level2 Done");
             yield return Level2 = true;
+            drehgelenk.transform.localEulerAngles = new Vector3(0,30, 0);
             levelDone.Play();
         }
     }
@@ -189,6 +191,7 @@ public class SchlossKnacken : MonoBehaviour
         {
             Debug.Log("Level3 Done");
             Level3 = true;
+            drehgelenk.transform.localEulerAngles = new Vector3(0, 0, 0);
             levelDone.Play();
         }
     }
