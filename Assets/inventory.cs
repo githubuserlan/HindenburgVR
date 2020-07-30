@@ -90,7 +90,7 @@ public class Inventory : MonoBehaviour
                 }
                 if (this.name == "LeftHand Controller" && HitObject == andererDietrich)
                 {
-                    HitObject = andererDietrich;
+                    HitObject = Dietrich;
                 }
             }
 

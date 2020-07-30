@@ -59,138 +59,142 @@ public class SchlossKnacken : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (grabHand.GetComponent<Inventory>().HitObject == this.gameObject)
-        {
-            dietrichgrabed = true;
-        }
-        else { dietrichgrabed = false; }
-
-        if (dietrichgrabed == true && grabHand.GetComponent<Inventory>().triggerButtonAction == true)
-        {
-            if (spawnedHands == false)
+            if (grabHand.GetComponent<Inventory>().HitObject == this.gameObject)
             {
-                grabHand.transform.position = dietrich.transform.position;
-                spawnObject = Instantiate(HandTranslatorR);
-                spawnedHands = true; ;
+                dietrichgrabed = true;
             }
-            grabHand.GetComponent<XRController>().enabled = false;
-            handRot.x = spawnObject.transform.eulerAngles.x;
-            savedPosition = grabHand.transform.position;
-            grabHand.transform.parent = Pivot.transform;
-            Pivot.transform.eulerAngles = new Vector3(handRot.x, handRot.y, 0);
-        }
-        else
-        {
-            if (spawnObject != null)
-            {
-                grabHand.GetComponent<XRController>().enabled = true;
-                Destroy(spawnObject);
-                spawnedHands = false;
-                grabHand.transform.parent = Camera.transform;
-                if (savedPosition != zeroVector3)
-                {
-                    grabHand.transform.position = savedPosition;
-                    savedPosition = zeroVector3;
-                }
-            }
-        }
-        if (dietrichgrabed == true)
-        {
-            if (Pivot.transform.localEulerAngles.x < 125 && Pivot.transform.eulerAngles.x > 132.5f && Level1 == false && Level2 == false && Level3 == false)
-            {
-                if (triggerLevel1 == false)
-                {
-                    Debug.Log("Click1");
-                    gotRight.Play();
-                    //StartCoroutine(FirstClick());
-                    triggerLevel1 = true;
-                }
+            else { dietrichgrabed = false; }
 
+            if (dietrichgrabed == true && grabHand.GetComponent<Inventory>().triggerButtonAction == true)
+            {
+                if (spawnedHands == false)
+                {
+                    grabHand.transform.position = dietrich.transform.position;
+                    spawnObject = Instantiate(HandTranslatorR);
+                    spawnedHands = true; ;
+                }
+                grabHand.GetComponent<XRController>().enabled = false;
+                handRot.x = spawnObject.transform.eulerAngles.x;
+                savedPosition = grabHand.transform.position;
+                grabHand.transform.parent = Pivot.transform;
+                Pivot.transform.eulerAngles = new Vector3(handRot.x, handRot.y, 0);
             }
             else
-            { triggerLevel1 = false; }
-
-            if (Pivot.transform.eulerAngles.x < 65 && Pivot.transform.eulerAngles.x > 55 && Level1 == true && Level2 == false && Level3 == false)
             {
-                if (triggerLevel2 == false)
+                if (spawnObject != null)
                 {
-                    Debug.Log("Click2");
-                    gotRight.Play();
-                    //StartCoroutine(SecondClick());
-                    triggerLevel2 = true;
+                    grabHand.GetComponent<XRController>().enabled = true;
+                    Destroy(spawnObject);
+                    spawnedHands = false;
+                    grabHand.transform.parent = Camera.transform;
+                    if (savedPosition != zeroVector3)
+                    {
+                        grabHand.transform.position = savedPosition;
+                        savedPosition = zeroVector3;
+                    }
                 }
             }
-            else
-            { triggerLevel2 = false; }
-
-            if (Pivot.transform.localEulerAngles.x < 100 && Pivot.transform.eulerAngles.x > 120 && Level1 == true && Level2 == true && Level3 == false)
+        if (Level3 != true)
+        {
+            if (dietrichgrabed == true)
             {
-                if (triggerLevel3 == false)
+                if (Pivot.transform.localEulerAngles.x < 125 && Pivot.transform.eulerAngles.x > 132.5f && Level1 == false && Level2 == false && Level3 == false)
                 {
-                    Debug.Log("Click3");
-                    gotRight.Play();
-                    //StartCoroutine(ThirdClick());
-                    triggerLevel3 = true;
+                    if (triggerLevel1 == false)
+                    {
+                        Debug.Log("Click1");
+                        gotRight.Play();
+                        //StartCoroutine(FirstClick());
+                        triggerLevel1 = true;
+                    }
+
+                }
+                else
+                { triggerLevel1 = false; }
+
+                if (Pivot.transform.eulerAngles.x < 65 && Pivot.transform.eulerAngles.x > 55 && Level1 == true && Level2 == false && Level3 == false)
+                {
+                    if (triggerLevel2 == false)
+                    {
+                        Debug.Log("Click2");
+                        gotRight.Play();
+                        //StartCoroutine(SecondClick());
+                        triggerLevel2 = true;
+                    }
+                }
+                else
+                { triggerLevel2 = false; }
+
+                if (Pivot.transform.localEulerAngles.x < 100 && Pivot.transform.eulerAngles.x > 120 && Level1 == true && Level2 == true && Level3 == false)
+                {
+                    if (triggerLevel3 == false)
+                    {
+                        Debug.Log("Click3");
+                        gotRight.Play();
+                        //StartCoroutine(ThirdClick());
+                        triggerLevel3 = true;
+                    }
+                }
+                else
+                { triggerLevel3 = false; }
+
+                if (Level3 == true)
+                {
+                    Debug.Log("Schloss geknackt");
                 }
             }
-            else
-            { triggerLevel3 = false; }
 
-            if (Level3 == true)
-            {
-                Debug.Log("Schloss geknackt");
-            }
+
+            //if (Pivot.transform.localEulerAngles.y < minRot)
+            //{
+            //    Pivot.transform.localEulerAngles = new Vector3(minRot, 0, 0);
+            //    Debug.Log("PlacedLow");
+            //}
+
+            //if (Pivot.transform.eulerAngles.y > maxRot)
+            //{
+            //    Pivot.transform.eulerAngles = new Vector3(maxRot, 0, 0);
+            //    Debug.Log("PlacedHigh");
+            //}
+
+            //Debug.Log(Pivot.transform.eulerAngles.x);
         }
+        else { this.gameObject.AddComponent<Rigidbody>(); }
 
-
-        //if (Pivot.transform.localEulerAngles.y < minRot)
+        //IEnumerator FirstClick()
         //{
-        //    Pivot.transform.localEulerAngles = new Vector3(minRot, 0, 0);
-        //    Debug.Log("PlacedLow");
+        //    yield return new WaitForSeconds(1);
+        //    if (Pivot.transform.localEulerAngles.x < 125 && Pivot.transform.eulerAngles.x > 132.5f && dietrichgrabed == true)
+        //    {
+        //        Debug.Log("Level1 Done");
+        //        yield return Level1 = true;
+        //        //drehgelenk.transform.localEulerAngles = new Vector3 (0,60,0);
+        //        levelDone.Play();
+        //    }
         //}
 
-        //if (Pivot.transform.eulerAngles.y > maxRot)
+        //IEnumerator SecondClick()
         //{
-        //    Pivot.transform.eulerAngles = new Vector3(maxRot, 0, 0);
-        //    Debug.Log("PlacedHigh");
+        //    yield return new WaitForSeconds(1);
+        //    if (Pivot.transform.eulerAngles.x < 65 && Pivot.transform.eulerAngles.x > 55 && dietrichgrabed == true)
+        //    {
+        //        Debug.Log("Level2 Done");
+        //        yield return Level2 = true;
+        //        //drehgelenk.transform.localEulerAngles = new Vector3(0,30, 0);
+        //        levelDone.Play();
+        //    }
         //}
 
-        //Debug.Log(Pivot.transform.eulerAngles.x);
+        //IEnumerator ThirdClick()
+        //{
+        //    yield return new WaitForSeconds(1);
+        //    if (Pivot.transform.localEulerAngles.x < 100 && Pivot.transform.eulerAngles.x > 120 && dietrichgrabed == true)
+        //    {
+        //        Debug.Log("Level3 Done");
+        //        Level3 = true;
+        //        //drehgelenk.transform.localEulerAngles = new Vector3(0, 0, 0);
+        //        levelDone.Play();
+        //    }
+        //}
     }
-
-    //IEnumerator FirstClick()
-    //{
-    //    yield return new WaitForSeconds(1);
-    //    if (Pivot.transform.localEulerAngles.x < 125 && Pivot.transform.eulerAngles.x > 132.5f && dietrichgrabed == true)
-    //    {
-    //        Debug.Log("Level1 Done");
-    //        yield return Level1 = true;
-    //        //drehgelenk.transform.localEulerAngles = new Vector3 (0,60,0);
-    //        levelDone.Play();
-    //    }
-    //}
-
-    //IEnumerator SecondClick()
-    //{
-    //    yield return new WaitForSeconds(1);
-    //    if (Pivot.transform.eulerAngles.x < 65 && Pivot.transform.eulerAngles.x > 55 && dietrichgrabed == true)
-    //    {
-    //        Debug.Log("Level2 Done");
-    //        yield return Level2 = true;
-    //        //drehgelenk.transform.localEulerAngles = new Vector3(0,30, 0);
-    //        levelDone.Play();
-    //    }
-    //}
-
-    //IEnumerator ThirdClick()
-    //{
-    //    yield return new WaitForSeconds(1);
-    //    if (Pivot.transform.localEulerAngles.x < 100 && Pivot.transform.eulerAngles.x > 120 && dietrichgrabed == true)
-    //    {
-    //        Debug.Log("Level3 Done");
-    //        Level3 = true;
-    //        //drehgelenk.transform.localEulerAngles = new Vector3(0, 0, 0);
-    //        levelDone.Play();
-    //    }
-    //}
 }
