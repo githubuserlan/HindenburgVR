@@ -27,7 +27,8 @@ public class Inventory : MonoBehaviour
 
     public GameObject spawnObject;
     public bool needToLeave;
-
+    public GameObject Dietrich;
+    public GameObject andererDietrich;
     void GetDevice()
     {
         InputDevices.GetDevicesAtXRNode(xrNode, devices);
@@ -83,6 +84,14 @@ public class Inventory : MonoBehaviour
             {
                 HitObject = collider.gameObject; //wird gespeichert als HitObject;
                 ObjectName = HitObject.name;  //Speichern des Name des OBjects
+                if (this.name == "RightHand Controller" && HitObject == Dietrich)
+                {
+                    HitObject = andererDietrich;
+                }
+                if (this.name == "LeftHand Controller" && HitObject == andererDietrich)
+                {
+                    HitObject = andererDietrich;
+                }
             }
 
 
