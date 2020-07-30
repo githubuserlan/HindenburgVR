@@ -14,6 +14,7 @@ public class Inventory : MonoBehaviour
     private List<InputDevice> devices = new List<InputDevice>();
     private InputDevice device;
     public bool gripButtonAction;
+    public bool triggerButtonAction;
     bool takenSpawnedObject;
     public GameObject leftInventoryPlace;
     public GameObject rightInventoryPlace;
@@ -44,7 +45,6 @@ public class Inventory : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(ObjectScale);
         if (!device.isValid)
         {
             GetDevice();
@@ -54,6 +54,13 @@ public class Inventory : MonoBehaviour
         {
             gripButtonAction = true;
         }
+
+        if (device.TryGetFeatureValue(CommonUsages.triggerButton, out triggerButtonAction) && triggerButtonAction)
+        {
+            triggerButtonAction = true;
+        }
+
+
         if (takenSpawnedObject == true)
         {
             if (spawnObject != null)
