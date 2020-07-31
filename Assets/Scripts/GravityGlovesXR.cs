@@ -48,7 +48,7 @@ public class GravityGlovesXR : MonoBehaviour
             if (hitGameobject.layer == LayerMask.NameToLayer("Grab"))
             {
                 //save current material
-                //if (materialOfObject != hitGameobject.GetComponent<Renderer>().material) { materialOfObject = hitGameobject.GetComponent<Renderer>().material; }
+                if (materialOfObject != hitGameobject.GetComponent<Renderer>().material) { materialOfObject = hitGameobject.GetComponent<Renderer>().material; }
 
                 //check if activationbutton is active
                 //if ()
@@ -65,7 +65,7 @@ public class GravityGlovesXR : MonoBehaviour
                     //{
                         //move object to player with force
                         Rigidbody hitRigidBody = hitGameobject.gameObject.GetComponent<Rigidbody>();
-                        hitRigidBody.AddForce(transform.forward * -1 * Power, ForceMode.Impulse);
+                        hitRigidBody.AddForce(transform.forward * -0.5f * Power, ForceMode.Impulse);
                     //}
                     //else
                     //{

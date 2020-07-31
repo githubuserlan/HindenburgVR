@@ -11,6 +11,8 @@ public class AttachTransform : MonoBehaviour
     //public XRBaseInteractable GrabedObject;
     Transform transformPos;
     public GameObject Pivot;
+    public GameObject LeftHand;
+    public GameObject RightHand;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +27,15 @@ public class AttachTransform : MonoBehaviour
         if (ObjectGrabed != null && ObjectGrabed.GetComponent<XRGrabInteractable>()!=null)
         {
             ObjectGrabed.GetComponent<XRGrabInteractable>().attachTransform = Pivot.transform;
+            if(RightHand.gameObject.GetComponent<Inventory>().HitObject == RightHand.gameObject.GetComponent<Inventory>().HitObject && LeftHand.gameObject.GetComponent<Inventory>().gripButtonAction==true)
+            {
+                Pivot = RightHand.gameObject.transform.GetChild(0).gameObject;
+            }
+            else if (RightHand.gameObject.GetComponent<Inventory>().HitObject == RightHand.gameObject.GetComponent<Inventory>().HitObject && RightHand.gameObject.GetComponent<Inventory>().gripButtonAction == true)
+            { Pivot = LeftHand.gameObject.transform.GetChild(0).gameObject; }
+            else { Pivot = this.gameObject.transform.GetChild(0).gameObject; }
+
+
         }
     }
 }
