@@ -19,7 +19,6 @@ public class AttachTransform : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Pivot = this.gameObject.transform.GetChild(0).gameObject;
         LeftHandPivot = LeftHand.transform.GetChild(0).gameObject;
         RightHandPivot = RightHand.transform.GetChild(0).gameObject;
     }
@@ -30,17 +29,16 @@ public class AttachTransform : MonoBehaviour
         ObjectGrabed = this.GetComponent<Inventory>().HitObject;
         if (ObjectGrabed != null)
         {
-            ObjectGrabed.GetComponent<XRGrabInteractable>().attachTransform = Pivot.transform;
+            ObjectGrabed.GetComponent<XRGrabInteractable>().attachTransform = this.gameObject.transform.GetChild(0).gameObject.transform;
         }
-        if (LeftHand.GetComponent<Inventory>().HitObject == RightHand.GetComponent<Inventory>().HitObject && LeftHand.GetComponent<Inventory>().gripButtonAction == true)
-        {
-            ObjectGrabed.GetComponent<XRGrabInteractable>().attachTransform = RightHandPivot.transform;
-        }
-        else if (RightHand.GetComponent<Inventory>().HitObject == LeftHand.GetComponent<Inventory>().HitObject && RightHand.GetComponent<Inventory>().gripButtonAction == true)
-        {
-            ObjectGrabed.GetComponent<XRGrabInteractable>().attachTransform = LeftHandPivot.transform;
-        }
-
+            if (LeftHand.GetComponent<Inventory>().HitObject == RightHand.GetComponent<Inventory>().HitObject && LeftHand.GetComponent<Inventory>().gripButtonAction == true)
+            {
+                ObjectGrabed.GetComponent<XRGrabInteractable>().attachTransform = RightHandPivot.transform;
+            }
+            if (RightHand.GetComponent<Inventory>().HitObject == LeftHand.GetComponent<Inventory>().HitObject && RightHand.GetComponent<Inventory>().gripButtonAction == true)
+            {
+                ObjectGrabed.GetComponent<XRGrabInteractable>().attachTransform = LeftHandPivot.transform;
+            }
 
     }
 }
