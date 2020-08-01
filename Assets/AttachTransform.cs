@@ -24,10 +24,10 @@ public class AttachTransform : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         ObjectGrabed = this.GetComponent<Inventory>().HitObject;
-        if (ObjectGrabed != null)
+        if (ObjectGrabed != null && this.GetComponent<Inventory>().gripButtonAction!=true)
         {
             ObjectGrabed.GetComponent<XRGrabInteractable>().attachTransform = this.gameObject.transform.GetChild(0).gameObject.transform;
         }
