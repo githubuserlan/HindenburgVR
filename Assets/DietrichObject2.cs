@@ -66,7 +66,7 @@ public class DietrichObject2 : MonoBehaviour
                     spawnedHands = true;
                 }
                 grabHand.GetComponent<XRController>().enabled = false;
-                handRot.y = spawnObject.transform.localEulerAngles.y;
+                handRot.y = spawnObject.transform.eulerAngles.z+90;
                 savedPosition = grabHand.transform.position;
                 grabHand.transform.parent = ChildHandNull.transform;
                 drehgelenk.transform.localEulerAngles = new Vector3(0, handRot.y, 0);

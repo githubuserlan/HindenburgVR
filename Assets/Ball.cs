@@ -13,7 +13,6 @@ public class Ball : MonoBehaviour
             other.gameObject.AddComponent<XRGrabInteractable>().movementType = this.transform.parent.GetComponent<XRGrabInteractable>().movementType;
             other.gameObject.layer = 8;
             other.transform.parent = null;
-
             Debug.Log("Ball falling");
         }
     }
