@@ -42,6 +42,8 @@ public class Numberlock : MonoBehaviour
     public float SavedRot;
     public float StartRot;
 
+    public GameObject Null;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -102,7 +104,7 @@ public class Numberlock : MonoBehaviour
             {
                 HandL.transform.position = ChildHandNull.transform.position;
                 spawnObject = Instantiate(Translator);
-                SavedRot = spawnObject.transform.eulerAngles.x;
+                SavedRot = spawnObject.transform.localEulerAngles.x;
                 spawnedHands = true;
             }
         }
@@ -125,7 +127,7 @@ public class Numberlock : MonoBehaviour
         if (Grip == true)
         {
             Hand.GetComponent<XRController>().enabled = false;
-            handRot.y = spawnObject.transform.eulerAngles.x;
+            handRot.y = spawnObject.transform.localEulerAngles.x;
             savedPosition = Hand.transform.position;
             Hand.transform.parent = ChildHandNullL.transform;
             this.transform.localEulerAngles = new Vector3(0, StartRot + handRot.y - SavedRot, 0);

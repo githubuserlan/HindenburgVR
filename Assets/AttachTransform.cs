@@ -27,18 +27,29 @@ public class AttachTransform : MonoBehaviour
         LeftHandPivot = LeftHand.transform.GetChild(0).gameObject;
         RightHandPivot = RightHand.transform.GetChild(0).gameObject;
         ObjectGrabed = this.GetComponent<Inventory>().HitObject;
-        //if (ObjectGrabed != null && this.GetComponent<Inventory>().gripButtonAction != true)
-        //{
-        //    ObjectGrabed.GetComponent<XRGrabInteractable>().attachTransform = this.gameObject.transform.GetChild(0).gameObject.transform;
-        //}
-        //if (LeftHand.GetComponent<Inventory>().HitObject == RightHand.GetComponent<Inventory>().HitObject && LeftHand.GetComponent<Inventory>().gripButtonAction == true && ObjectGrabed != null)
-        //{
-        //    ObjectGrabed.GetComponent<XRGrabInteractable>().attachTransform = RightHandPivot.transform;
-        //}
-        //if (RightHand.GetComponent<Inventory>().HitObject == LeftHand.GetComponent<Inventory>().HitObject && RightHand.GetComponent<Inventory>().gripButtonAction == true && ObjectGrabed != null)
-        //{
-        //    ObjectGrabed.GetComponent<XRGrabInteractable>().attachTransform = LeftHandPivot.transform;
-        //}
+        if (ObjectGrabed != null && this.GetComponent<Inventory>().gripButtonAction != true)
+        {
+            if (ObjectGrabed.GetComponent<XRGrabInteractable>() != null)
+            {
+                ObjectGrabed.GetComponent<XRGrabInteractable>().attachTransform = this.gameObject.transform.GetChild(0).gameObject.transform;
+            }
+            else
+            {
+                if (ObjectGrabed.transform.GetChild(0).gameObject.GetComponent<XRGrabInteractable>() != null)
+                {
+                    ObjectGrabed.transform.GetChild(0).GetComponent<XRGrabInteractable>().attachTransform = this.gameObject.transform.GetChild(0).gameObject.transform;
+
+                }
+            }
+        }
+        if (LeftHand.GetComponent<Inventory>().HitObject == RightHand.GetComponent<Inventory>().HitObject && LeftHand.GetComponent<Inventory>().gripButtonAction == true && ObjectGrabed != null)
+        {
+            ObjectGrabed.GetComponent<XRGrabInteractable>().attachTransform = RightHandPivot.transform;
+        }
+        if (RightHand.GetComponent<Inventory>().HitObject == LeftHand.GetComponent<Inventory>().HitObject && RightHand.GetComponent<Inventory>().gripButtonAction == true && ObjectGrabed != null)
+        {
+            ObjectGrabed.GetComponent<XRGrabInteractable>().attachTransform = LeftHandPivot.transform;
+        }
 
     }
 }

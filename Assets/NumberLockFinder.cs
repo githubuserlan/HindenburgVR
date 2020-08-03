@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System.Collections;                       
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,16 +20,16 @@ public class NumberLockFinder : MonoBehaviour
         switch (this.gameObject.name)
         {
             case "Rad1null":
-                N1 = this.gameObject;
+                N1 = M1;
                 break;
             case "Rad2null":
-                N1 = this.gameObject;
+                N1 = M2;
                 break;
             case "Rad3null":
-                N1 = this.gameObject;
+                N1 = M3;
                 break;
             case "Rad4null":
-                N1 = this.gameObject;
+                N1 = M4 ;
                 break;
         }
     }

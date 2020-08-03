@@ -89,19 +89,19 @@ public class DietrichObject2 : MonoBehaviour
 
         if (Level3 != true)
         {
-            if (TriggerLevel1 == true && drehgelenk.transform.localEulerAngles.y <= 60)
+            if (TriggerLevel1 == true && drehgelenk.transform.localEulerAngles.y <= 80)
             {
                 levelDone.Play();
                 dietrich.GetComponent<SchlossKnacken>().Level1 = true;
                 Debug.Log("Level1Clear");
             }
-            if (TriggerLevel2 == true && drehgelenk.transform.localEulerAngles.y <= 35)
+            if (TriggerLevel2 == true && drehgelenk.transform.localEulerAngles.y <= 45)
             {
                 levelDone.Play();
                 dietrich.GetComponent<SchlossKnacken>().Level2 = true;
                 Debug.Log("Level2Clear");
             }
-            if (TriggerLevel3 == true && drehgelenk.transform.localEulerAngles.y <= 5)
+            if (TriggerLevel3 == true && drehgelenk.transform.localEulerAngles.y <= 15)
             {
                 levelDone.Play();
                 dietrich.GetComponent<SchlossKnacken>().Level3 = true;
@@ -126,18 +126,18 @@ public class DietrichObject2 : MonoBehaviour
             {
                 drehgelenk.transform.localEulerAngles = new Vector3(0, 90, 0);
             }
-            if (drehgelenk.transform.localEulerAngles.y <= 40)
+            if (drehgelenk.transform.localEulerAngles.y <= 70)
             {
                 if (TriggerLevel2 == false && Level2 == false)
                 {
-                    drehgelenk.transform.localEulerAngles = new Vector3(0, 40, 0);
+                    drehgelenk.transform.localEulerAngles = new Vector3(0, 70, 0);
                 }
             }
-            if (drehgelenk.transform.localEulerAngles.y <= 10)
+            if (drehgelenk.transform.localEulerAngles.y <= 30)
             {
                 if (TriggerLevel3 == false && Level3 == false)
                 {
-                    drehgelenk.transform.localEulerAngles = new Vector3(0, 10, 0);
+                    drehgelenk.transform.localEulerAngles = new Vector3(0, 30, 0);
                 }
             }
         }
