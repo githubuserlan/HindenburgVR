@@ -27,7 +27,16 @@ public class BallLock : MonoBehaviour
             this.transform.eulerAngles = new Vector3(0, 0, 270);
             this.gameObject.layer = 0;
             this.GetComponent<Rigidbody>().isKinematic = true;
+            //this.GetComponent<Rigidbody>().useGravity = false;
+            snaped = true;
+        }
+    }
+    private void Update()
+    {
+        if(snaped==true)
+        {
             this.GetComponent<Rigidbody>().useGravity = false;
+            this.GetComponent<Rigidbody>().isKinematic = true;
         }
     }
 }
