@@ -136,7 +136,7 @@ public class Numberlock : MonoBehaviour
         //    Click.enabled = false;
         //}
 
-        //if (N1.transform.localEulerAngles.y == 200 && N2.transform.localEulerAngles.y == 160 && N3.transform.localEulerAngles.y == 280 && N4.transform.localEulerAngles.y == 80 && DiamomdIn == true)
+        if (N1.transform.localEulerAngles.y == 200 && N2.transform.localEulerAngles.y == 160 && N3.transform.localEulerAngles.y == 280 && N4.transform.localEulerAngles.y == 80 && DiamomdIn == true)
         {
             //soundcomplete
             //schatztruhe öffnet
@@ -146,7 +146,10 @@ public class Numberlock : MonoBehaviour
             //N4.transform.parent.gameObject.AddComponent<Rigidbody>();
             //DiamomdIn = false;
             RiddleDone.Play();
-            ChestTopAnchor.GetComponent<Animation>().Play();
+            if (ChestTopAnchor.GetComponent<Animation>().isPlaying == false)
+            {
+                ChestTopAnchor.GetComponent<Animation>().Play();
+            }
             Destroy(this.GetComponent<Numberlock>());
         }
         //Code ist 1937
