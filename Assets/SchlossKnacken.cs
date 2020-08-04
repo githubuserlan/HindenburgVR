@@ -41,6 +41,8 @@ public class SchlossKnacken : MonoBehaviour
 
     public bool spawnedHands = false;
 
+    public AudioSource RiddleDone;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -130,9 +132,10 @@ public class SchlossKnacken : MonoBehaviour
                     if (triggerLevel3 == false)
                     {
                         Debug.Log("Click3");
-                        gotRight.Play();
+                        //gotRight.Play();
                         //StartCoroutine(ThirdClick());
                         triggerLevel3 = true;
+                        RiddleDone.Play();
                     }
                 }
                 else

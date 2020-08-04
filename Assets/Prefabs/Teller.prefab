@@ -202,3 +202,4 @@ MonoBehaviour:
   destroyedVersion: {fileID: 381970200214295431, guid: a0a675855b9753e49a8c184d938e72c7,
     type: 3}
   DestroySpeed: 2
+  broken: {fileID: 0}

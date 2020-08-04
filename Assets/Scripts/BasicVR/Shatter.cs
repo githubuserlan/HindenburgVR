@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,7 +12,6 @@ public class Shatter : MonoBehaviour
 
     public GameObject destroyedVersion;
     public float DestroySpeed;
-
     float speed;
     bool SpeedIsThere;
     bool SpawnAndDestroy = false;
@@ -25,7 +23,7 @@ public class Shatter : MonoBehaviour
         if (SpeedIsThere || (collision.gameObject.GetComponent<Rigidbody>().velocity.magnitude > DestroySpeed && collision.gameObject.layer == 8/*collision.collider.gameObject.layer == LayerMask.NameToLayer("Grab")*/ ))
         {
             //Lets destroy
-            SpawnAndDestroy = true;   
+            SpawnAndDestroy = true;
         }
     }
 
