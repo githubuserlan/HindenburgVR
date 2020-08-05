@@ -5,6 +5,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class Ball : MonoBehaviour
 {
+    public AudioSource RiddleDone;
     // Start is called before the first frame update
     private void OnTriggerEnter(Collider other)
     {
@@ -14,6 +15,9 @@ public class Ball : MonoBehaviour
             other.gameObject.layer = 8;
             other.transform.parent = null;
             Debug.Log("Ball falling");
+            Destroy(other.GetComponent<AudioSource>());
+            //Destroy(other.GetComponent<AudioSource>());
+            RiddleDone.Play();
         }
     }
 }

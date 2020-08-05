@@ -18,6 +18,9 @@ public class Doorweel : MonoBehaviour
     bool RightHandIn;
     Vector3 Rot;
     bool opened = false;
+
+
+    public AudioSource RiddleDone;
     // Update is called once per frame
     private void OnCollisionEnter(Collision collision)
     {
@@ -35,6 +38,7 @@ public class Doorweel : MonoBehaviour
             this.transform.eulerAngles = new Vector3(0, 0, 270);
             this.gameObject.layer = 0;
             this.GetComponent<Rigidbody>().isKinematic = true;
+            RiddleDone.Play();
         }
 
         if (collision.gameObject == LeftHand)

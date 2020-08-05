@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.AccessControl;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction;
@@ -40,6 +41,8 @@ public class SchlossKnacken : MonoBehaviour
     public AudioSource levelDone;
 
     public bool spawnedHands = false;
+
+    public AudioSource RiddleDone;
 
     // Start is called before the first frame update
     void Start()
@@ -112,7 +115,7 @@ public class SchlossKnacken : MonoBehaviour
                 else
                 { triggerLevel1 = false; }
 
-                if (Pivot.transform.eulerAngles.x < 65 && Pivot.transform.eulerAngles.x > 55 && Level1 == true && Level2 == false && Level3 == false)
+                if (Pivot.transform.eulerAngles.x < 85 && Pivot.transform.eulerAngles.x > 75 && Level1 == true && Level2 == false && Level3 == false)
                 {
                     if (triggerLevel2 == false)
                     {
@@ -130,9 +133,14 @@ public class SchlossKnacken : MonoBehaviour
                     if (triggerLevel3 == false)
                     {
                         Debug.Log("Click3");
-                        gotRight.Play();
+                        //gotRight.Play();
                         //StartCoroutine(ThirdClick());
                         triggerLevel3 = true;
+                        RiddleDone.Play();
+                        this.gameObject.AddComponent<Rigidbody>();
+                        drehgelenk.SetActive(false);
+                        this.GetComponent<MeshRenderer>().enabled = false;
+                        
                     }
                 }
                 else
@@ -159,7 +167,7 @@ public class SchlossKnacken : MonoBehaviour
 
             //Debug.Log(Pivot.transform.eulerAngles.x);
         }
-        else { this.gameObject.AddComponent<Rigidbody>(); }
+        else { }
 
         //IEnumerator FirstClick()
         //{

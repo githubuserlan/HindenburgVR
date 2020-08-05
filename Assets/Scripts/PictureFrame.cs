@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -14,6 +15,7 @@ public class PictureFrame : MonoBehaviour
     public GameObject Bilderrahmen;
     bool BackFrameGrabedOnce;
 
+    public AudioSource RiddleDone;
 
     // Start is called before the first frame update
     void Start()
@@ -81,6 +83,8 @@ public class PictureFrame : MonoBehaviour
                 kid.AddComponent<BoxCollider>();
                 kid.AddComponent<XRGrabInteractable>();
                 BackFrameGrabedOnce = false;
+                RiddleDone.Play();
+                Destroy(this.GetComponent<PictureFrame>());
             }
         }
     }

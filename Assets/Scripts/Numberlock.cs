@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using UnityEngine.UIElements;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -43,6 +44,13 @@ public class Numberlock : MonoBehaviour
     public float StartRot;
 
     public GameObject Null;
+
+    public bool DiamomdIn;
+
+    public AudioSource RiddleDone;
+    public AudioSource Click;
+
+    public GameObject ChestTopAnchor;
 
     // Start is called before the first frame update
     void Start()
@@ -121,19 +129,47 @@ public class Numberlock : MonoBehaviour
             HandSpawn2(RightHand, RightGrip, this.gameObject);
             //Debug.Log("StartRight");
         }
+        //if (this.transform.localEulerAngles.y % 40 == 0 && Click.enabled == true)
+        //{
+        //    Click.Play();
+        //    Debug.Log("Click");
+        //    Click.enabled = false;
+        //}
+
+        if (N1.transform.localEulerAngles.y == 200 && N2.transform.localEulerAngles.y == 160 && N3.transform.localEulerAngles.y == 280 && N4.transform.localEulerAngles.y == 80 && DiamomdIn == true)
+        {
+            //soundcomplete
+            //schatztruhe öffnet
+            //N1.transform.parent.gameObject.AddComponent<Rigidbody>();
+            //N2.transform.parent.gameObject.AddComponent<Rigidbody>();
+            //N3.transform.parent.gameObject.AddComponent<Rigidbody>();
+            //N4.transform.parent.gameObject.AddComponent<Rigidbody>();
+            //DiamomdIn = false;
+            RiddleDone.Play();
+            if (ChestTopAnchor.GetComponent<Animation>().isPlaying == false)
+            {
+                ChestTopAnchor.GetComponent<Animation>().Play();
+            }
+            Debug.Log("Lock geöffnet");
+            Destroy(this.GetComponent<Numberlock>());
+        }
+        //Code ist 1937
+
     }
     void HandSpawn2(GameObject Hand, bool Grip, GameObject ChildHandNullL)
     {
         if (Grip == true)
         {
+            //Click.enabled = true;
             Hand.GetComponent<XRController>().enabled = false;
             handRot.y = spawnObject.transform.localEulerAngles.x;
             savedPosition = Hand.transform.position;
             Hand.transform.parent = ChildHandNullL.transform;
-            this.transform.localEulerAngles = new Vector3(0, StartRot + handRot.y - SavedRot, 0);
+            this.transform.localEulerAngles = new Vector3(0, StartRot + (handRot.y * 2) - (SavedRot * 2), 0);
         }
         else
         {
+            //Click.enabled = false;
             StartRot = this.transform.localEulerAngles.y;
             SavedRot = 0;
             if (spawnObject != null)
@@ -166,20 +202,7 @@ public class Numberlock : MonoBehaviour
         if (N1_Rot < 340 && N1_Rot > 300) { N1_Rot = 320; Debug.Log("Set to 4"); }
         if (N1_Rot < 360 && N1_Rot > 340) { N1_Rot = 360; Debug.Log("Set to 5"); }
         this.transform.localEulerAngles = new Vector3(0, N1_Rot, 0);
-
-
-        if (N1.transform.localEulerAngles.y == 200 && N2.transform.localEulerAngles.y == 160 && N3.transform.localEulerAngles.y == 280 && N4.transform.localEulerAngles.y == 80)
-        {
-            //soundcomplete
-            //schatztruhe öffnet
-            N1.transform.parent.gameObject.AddComponent<Rigidbody>();
-            N2.transform.parent.gameObject.AddComponent<Rigidbody>();
-            N3.transform.parent.gameObject.AddComponent<Rigidbody>();
-            N4.transform.parent.gameObject.AddComponent<Rigidbody>();
-        }
-        //Code ist 1937
     }
-
 
     /*        
     8 = 350   10 
