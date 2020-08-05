@@ -150,6 +150,7 @@ public class Numberlock : MonoBehaviour
             {
                 ChestTopAnchor.GetComponent<Animation>().Play();
             }
+            Debug.Log("Lock geöffnet");
             Destroy(this.GetComponent<Numberlock>());
         }
         //Code ist 1937

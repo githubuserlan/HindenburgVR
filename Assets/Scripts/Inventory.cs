@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -25,7 +26,7 @@ public class Inventory : MonoBehaviour
     public GameObject leftBag;
     public GameObject rightBag;
 
-    public GameObject spawnObject;
+    static public GameObject spawnObject;
     public bool needToLeave;
     public GameObject Dietrich;
     public GameObject andererDietrich;
@@ -49,6 +50,9 @@ public class Inventory : MonoBehaviour
 
     private void Update()
     {
+
+        Debug.Log("Left: "+ leftInventoryPlace + ", and Right: " + rightInventoryPlace );
+
         if (!device.isValid)
         {
             GetDevice();
@@ -64,23 +68,26 @@ public class Inventory : MonoBehaviour
             triggerButtonAction = true;
         }
 
-
         if (takenSpawnedObject == true)
         {
-            if (spawnObject != null)
+            spawnObject.transform.localScale = ObjectScale; //skalierung wird wieder zurück gestellt, wie es vor einlegen in die Tasche war.
+            if (spawnObject != null &&gripButtonAction==false)
             {
                 spawnObject.GetComponent<Rigidbody>().isKinematic = false; //aktiviere gravitation
                 spawnObject.transform.parent = null; //ist kein child der Tasche mehr
-                //StartCoroutine(ExampleCoroutine());
-                spawnObject.transform.localScale = ObjectScale; //skalierung wird wieder zurück gestellt, wie es vor einlegen in die Tasche war.
+                spawnObject.GetComponent<XRGrabInteractable>().movementType = MovementTypeVelocity.GetComponent<XRGrabInteractable>().movementType;
+                spawnObject.transform.parent = null;
+                Debug.Log("OutOfBox");
             }
         }
+
     }
 
     public GameObject HitObject;
 
     private void OnTriggerEnter(Collider collider)
     {
+
         //Kontakt mit grabable Objekten
         if (collider.gameObject.layer == 8) //ist es ein grabable Item?
             if (gripButtonAction == false)
@@ -98,62 +105,74 @@ public class Inventory : MonoBehaviour
             }
 
 
-        //Objekt ins Inventar legen:
+        //Kontakt mit grabable Objekten
         if (collider.gameObject.layer == 13) //Wenn Hand mit einer Tasche collided
         {
             takenSpawnedObject = false;
-            if (rightInventoryPlace == null && HitObject != null && collider.name== "RightBag") // und die Tasche leer ist sowie man hat etwas in der Hand
+
+            if (leftInventoryPlace == null && HitObject != null && collider.name == "LeftBag") // und die Tasche leer ist sowie man hat etwas in der Hand
             {
+                spawnObject = null;
                 for (int i = 0; i < preFabInventoryItems.Count; i++) //suche nach gegriffenem Objekt in List
                 {
                     if (preFabInventoryItems[i].name == ObjectName) //suche nach Prefab in der Liste anhand des Namens
                     {
-                        rightInventoryPlace = preFabInventoryItems[i]; //Inventarspeicherslot für die rechte Tasche
+                        leftInventoryPlace = preFabInventoryItems[i]; //Inventarspeicherslot für die Tasche
                         ObjectScale = HitObject.transform.localScale; //ich speichere die originale skalierung des Objekts (um das Objekt in die korrekte skalierung später zu bringen) 
                         Destroy(HitObject); //Objekt wird zerstörrt
                         HitObject = null; // kein Objekt mehr in der Hand
                         needToLeave = true;
-                        Debug.Log("Destory");
+                        //Debug.Log("Destory");
                         break;
                     }
                 }
             }
-
-            if (rightInventoryPlace == null && HitObject != null && collider.name == "LeftBag") // und die Tasche leer ist sowie man hat etwas in der Hand
+            if (rightInventoryPlace == null && HitObject != null && collider.name == "RightBag") // und die Tasche leer ist sowie man hat etwas in der Hand
             {
                 for (int i = 0; i < preFabInventoryItems.Count; i++) //suche nach gegriffenem Objekt in List
                 {
+                    spawnObject = null;
                     if (preFabInventoryItems[i].name == ObjectName) //suche nach Prefab in der Liste anhand des Namens
                     {
-                        leftInventoryPlace = preFabInventoryItems[i]; //Inventarspeicherslot für die rechte Tasche
+                      
+                        rightInventoryPlace = preFabInventoryItems[i]; //Inventarspeicherslot für die Tasche
                         ObjectScale = HitObject.transform.localScale; //ich speichere die originale skalierung des Objekts (um das Objekt in die korrekte skalierung später zu bringen) 
                         Destroy(HitObject); //Objekt wird zerstörrt
                         HitObject = null; // kein Objekt mehr in der Hand
                         needToLeave = true;
-                        Debug.Log("Destory");
+                        //Debug.Log("Destory");
                         break;
                     }
                 }
             }
 
             //greifen aus dem Inventar bzw das erscheinen des Objekts, wenn man mit der Hand zum Inventar geht
+            if (HitObject == null && leftInventoryPlace != null && needToLeave == false) //wenn das Inventar bestückt ist und kein objekt gegriffen ist
+            {
+                creatObject(leftInventoryPlace, leftBag);
+            }
+
             if (HitObject == null && rightInventoryPlace != null && needToLeave == false) //wenn das Inventar bestückt ist und kein objekt gegriffen ist
             {
-                if (rightBag.transform.childCount <= 1) // und maximal 1 Objekt als Child da ist (wegen bugs)
-                {
-                    spawnObject = Instantiate(rightInventoryPlace, rightBag.transform.position, transform.rotation); //soll Objekt erstellt werden
-                    spawnObject.name = ObjectName; //es richtig benannt werden (falls man das Objekt wieder ins Invertar legen möchte)
-                    spawnObject.transform.parent = rightBag.transform; // es schwebt an der Tasche, damit man es greifen kann
-                    spawnObject.transform.position = rightBag.transform.position + new Vector3(0, 0, 0);  //Objekt wird über die Tasche gelegt.
-                    spawnObject.transform.localScale = new Vector3(1f, 1f, 1f); // und ist während dem schweben kleiner
-                    spawnObject.transform.localEulerAngles = new Vector3(0, 0, 0); // und richtig rotiert
-                    spawnObject.GetComponent<Rigidbody>().isKinematic = true; // und die Gravity wird deaktiviert, damit das Objekt nicht direkt auf den Boden fällt
-                    spawnObject.GetComponent<XRGrabInteractable>().movementType=MovementTypeKinematic.GetComponent<XRGrabInteractable>().movementType;
-                }
+                creatObject(rightInventoryPlace, rightBag);
             }
         }
     }
-
+    void creatObject(GameObject Bag, GameObject LocationBag)
+    {
+        if (LocationBag.transform.childCount == 0) // und maximal 1 Objekt als Child da ist (wegen bugs)
+        {
+            spawnObject = Instantiate(Bag, LocationBag.transform.position, transform.rotation); //soll Objekt erstellt werden
+            spawnObject.name = ObjectName; //es richtig benannt werden (falls man das Objekt wieder ins Invertar legen möchte)
+            spawnObject.transform.parent = LocationBag.transform; // es schwebt an der Tasche, damit man es greifen kann
+            spawnObject.transform.position = LocationBag.transform.position + new Vector3(0, 0, 0);  //Objekt wird über die Tasche gelegt.
+            spawnObject.transform.localScale = new Vector3(1f, 1f, 1f); // und ist während dem schweben kleiner
+            spawnObject.transform.localEulerAngles = new Vector3(0, 0, 0); // und richtig rotiert
+            spawnObject.GetComponent<Rigidbody>().isKinematic = true; // und die Gravity wird deaktiviert, damit das Objekt nicht direkt auf den Boden fällt
+            spawnObject.GetComponent<XRGrabInteractable>().movementType = MovementTypeKinematic.GetComponent<XRGrabInteractable>().movementType;
+            Debug.Log(spawnObject.GetComponent<XRGrabInteractable>().movementType);
+        }
+    }
 
     private void OnTriggerExit(Collider collider)
     {
@@ -162,33 +181,29 @@ public class Inventory : MonoBehaviour
             {
                 HitObject = null;
             }
+
+
         if (collider.gameObject.layer == 13)
         {
+            if (collider.gameObject.name == "LeftBag")
             { // wenn das Objekt aus dem Inventar gezogen wird
-                if (needToLeave == false && rightInventoryPlace != null && collider.name == "RightBag")
+                if (needToLeave == false && leftInventoryPlace != null && gripButtonAction == true)
                 {
-                    if (gripButtonAction == true)
-                    {
-                        
-                        rightInventoryPlace = null; //Inventar ist dann leer;
-                        takenSpawnedObject = true;
-                        Debug.Log("Done");
-                        spawnObject.GetComponent<XRGrabInteractable>().movementType = MovementTypeVelocity.GetComponent<XRGrabInteractable>().movementType;
-                    }
+                    spawnObject.transform.parent = this.transform;
+                    leftInventoryPlace = null; //Inventar ist dann leer;
+                    takenSpawnedObject = true;
+                    //Debug.Log("Done");
                 }
             }
-
+            if (collider.gameObject.name == "RightBag")
             { // wenn das Objekt aus dem Inventar gezogen wird
-                if (needToLeave == false && rightInventoryPlace != null && collider.name == "LeftBag")
+                if (needToLeave == false && rightInventoryPlace != null && gripButtonAction == true)
                 {
-                    if (gripButtonAction == true)
-                    {
-
-                        leftInventoryPlace = null; //Inventar ist dann leer;
-                        takenSpawnedObject = true;
-                        Debug.Log("Done");
-                        spawnObject.GetComponent<XRGrabInteractable>().movementType = MovementTypeVelocity.GetComponent<XRGrabInteractable>().movementType;
-                    }
+                    spawnObject.transform.parent = this.transform;
+                    rightInventoryPlace = null; //Inventar ist dann leer;
+                    takenSpawnedObject = true;
+                   
+                    //Debug.Log("Done");
                 }
             }
 
@@ -196,17 +211,30 @@ public class Inventory : MonoBehaviour
             if (needToLeave == true)
             {
                 needToLeave = false;
-                Debug.Log("aus dem Inventar gegangen");
+                //Debug.Log("aus dem Inventar gegangen");
             }
         }
     }
 
+    //void takeOutOfInventory(GameObject LocationBag)
+    //{
+    //     // wenn das Objekt aus dem Inventar gezogen wird
+    //        if (needToLeave == false && LocationBag != null && gripButtonAction == true)
+    //        {
+    //                LocationBag = null; //Inventar ist dann leer;
+    //                takenSpawnedObject = true;
+    //                Debug.Log("Done");
+    //                spawnObject.GetComponent<XRGrabInteractable>().movementType = MovementTypeVelocity.GetComponent<XRGrabInteractable>().movementType;
+    //        }
+        
+    //}
 
     IEnumerator ExampleCoroutine()
     {
         //yield on a new YieldInstruction that waits for 5 seconds.
         yield return new WaitForSeconds(1);
-        spawnObject = null;
+        spawnObject.GetComponent<XRGrabInteractable>().movementType = MovementTypeVelocity.GetComponent<XRGrabInteractable>().movementType;
+
     }
 
 }

@@ -9,7 +9,7 @@ public class ShatterSound : MonoBehaviour
     {
         AudioSource broken = this.GetComponent<AudioSource>();
         float pitch = Random.Range(0.8f, 1.1f);
-        Debug.Log(pitch);
+        //Debug.Log(pitch);
         broken.pitch = 1.5f;
         broken.Play();
     }
