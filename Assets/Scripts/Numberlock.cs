@@ -51,6 +51,7 @@ public class Numberlock : MonoBehaviour
     public AudioSource Click;
 
     public GameObject ChestTopAnchor;
+    public GameObject Phone;
 
     // Start is called before the first frame update
     void Start()
@@ -151,6 +152,10 @@ public class Numberlock : MonoBehaviour
                 ChestTopAnchor.GetComponent<Animation>().Play();
             }
             Debug.Log("Lock geöffnet");
+            if (Phone != null)
+            {
+                Phone.GetComponent<Phone>().Geschafft.Play();
+            }
             Destroy(this.GetComponent<Numberlock>());
         }
         //Code ist 1937

@@ -33,6 +33,16 @@ public class PictureFrame : MonoBehaviour
 
         }
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        {if(collision.gameObject.layer==12)
+            {
+                this.GetComponent<Rigidbody>().isKinematic = false;
+            }
+        }
+    }
+
     private void Update()
     {  //IF Frame is grabed, then 
         if (LeftHand.GetComponent<Inventory>().HitObject == this.gameObject && LeftHand.GetComponent<Inventory>().gripButtonAction == true && backframeObject == false)

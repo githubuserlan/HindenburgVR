@@ -29,7 +29,7 @@ public class Phone : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name == "Menschenlos") ;
+        if (collision.gameObject.name == "Menschenlos")
         {
             Menschenlos.Play();
         }
@@ -45,9 +45,6 @@ public class Phone : MonoBehaviour
         {
             Murmel.Play();
         }
-        if(collision.gameObject.name=="Schloss")
-        {
-            Geschafft.Play();
-        }
+
     }
 }

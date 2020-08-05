@@ -59,19 +59,19 @@ public class Doorweel : MonoBehaviour
         if (snaped == true)
         {
             this.gameObject.transform.position = Aposition;
-            desiredRotz = this.transform.eulerAngles.z;
-            if (this.transform.eulerAngles.x != 0 || this.transform.eulerAngles.y != 0)
+            desiredRotz = this.transform.localEulerAngles.z;
+            if (this.transform.localEulerAngles.x != 0 || this.transform.localEulerAngles.y != 0)
             {
-                this.transform.eulerAngles = new Vector3(0, 0, desiredRotz);
+                this.transform.localEulerAngles = new Vector3(0, 0, desiredRotz);
             }
 
-            if (this.transform.eulerAngles.z > 270)
-            { this.transform.eulerAngles = new Vector3(0, 0, 270f); }
-            if (this.transform.eulerAngles.z < 90)
-            { this.transform.eulerAngles = new Vector3(0, 0, 90f); }
+            if (this.transform.localEulerAngles.z > 270)
+            { this.transform.localEulerAngles = new Vector3(0, 0, 270f); }
+            if (this.transform.localEulerAngles.z < 90)
+            { this.transform.localEulerAngles = new Vector3(0, 0, 90f); }
 
 
-            if (this.transform.eulerAngles.z <= 95 && opened==false)
+            if (this.transform.localEulerAngles.z <= 95 && opened==false)
             { openDoor(); opened = true; }
         }
     }
