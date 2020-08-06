@@ -4,6 +4,7 @@ using System.Security.AccessControl;
 using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class Doorweel : MonoBehaviour
 {
@@ -17,8 +18,8 @@ public class Doorweel : MonoBehaviour
     bool LeftHandIn;
     bool RightHandIn;
     Vector3 Rot;
-    bool opened = false;
-
+    public bool opened = false;
+    public GameObject PivotRad;
 
     public AudioSource RiddleDone;
     // Update is called once per frame
@@ -35,7 +36,7 @@ public class Doorweel : MonoBehaviour
             //this.GetComponent<HingeJoint>().useLimits = true;
             //Hinge.axis = new Vector3(0, 0, 1);
             Debug.Log("trigger");
-            this.transform.eulerAngles = new Vector3(0, 90, 0);
+            this.transform.localEulerAngles = new Vector3(0, -90, 11);
             this.gameObject.layer = 0;
             this.GetComponent<Rigidbody>().isKinematic = true;
             RiddleDone.Play();
@@ -56,27 +57,30 @@ public class Doorweel : MonoBehaviour
 
     private void Update()
     {
-        if (snaped == true)
+        if (snaped == true &&opened==false)
         {
             this.gameObject.transform.position = Aposition;
-            desiredRotz = this.transform.eulerAngles.z;
-            if (this.transform.eulerAngles.x != 0 || this.transform.eulerAngles.y != 0)
-            {
-                this.transform.eulerAngles = new Vector3(0, 90, desiredRotz);
-            }
+            desiredRotz = this.transform.localEulerAngles.z;
+            this.GetComponent<XRGrabInteractable>().trackPosition = false;
 
-            if (this.transform.eulerAngles.z > 270)
-            { this.transform.eulerAngles = new Vector3(0, 90, 270f); }
-            if (this.transform.eulerAngles.z < 90)
-            { this.transform.eulerAngles = new Vector3(0, 90, 90f); }
-
-
-            if (this.transform.eulerAngles.z <= 95 && opened==false)
+            this.transform.localEulerAngles = new Vector3(0, -90, desiredRotz);
+            Debug.Log(desiredRotz);
+            if (desiredRotz < 170 && opened==false)
             { openDoor(); opened = true; }
+
+            //if (this.transform.localEulerAngles.z < 10)
+            //{
+            //    desiredRotz = 11f;
+            //    this.transform.localEulerAngles = new Vector3(0, -90, desiredRotz); Debug.Log("Force Smaller Than 10");
+            //}
+            //if (this.transform.localEulerAngles.z > 175)
+            //{ desiredRotz = 174; this.transform.localEulerAngles = new Vector3(0, -90, desiredRotz); Debug.Log("Force Bigger Than 180"); }
         }
     }
     void openDoor()
     {
+        this.transform.parent = PivotRad.transform;
+        PivotRad.GetComponent<Animator>().Play("OpenDoorRing");
         //openDoor
         Debug.Log("Opens");
     }

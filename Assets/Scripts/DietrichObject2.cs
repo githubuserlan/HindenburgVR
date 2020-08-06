@@ -37,7 +37,7 @@ public class DietrichObject2 : MonoBehaviour
 
     public AudioSource gotRight;
     public AudioSource levelDone;
-
+    public GameObject Door;
     public bool spawnedHands = false;
 
     void Update()
@@ -56,7 +56,7 @@ public class DietrichObject2 : MonoBehaviour
                 dietrichgrabed = true;
             }
             else { dietrichgrabed = false; }
-        dietrichgrabed = true;
+        //dietrichgrabed = true;
             if (dietrichgrabed == true && grabHand.GetComponent<Inventory>().triggerButtonAction == true)
             {
                 if (spawnedHands == false)
@@ -143,9 +143,17 @@ public class DietrichObject2 : MonoBehaviour
         }
         else
         {
-            this.gameObject.AddComponent<Rigidbody>();
+            int i = 0;
+            if (i == 0)
+            {
+                this.gameObject.AddComponent<Rigidbody>();
+                Pivot.gameObject.AddComponent<Rigidbody>();
+                Door.GetComponent<Animator>().Play("TürSchlossAnim");
+                Debug.Log("Schloss geknackt");
+                i = 1;
+            }
         }
 
-        Debug.Log(drehgelenk.transform.localEulerAngles);
+        //Debug.Log(drehgelenk.transform.localEulerAngles);
     }
 }

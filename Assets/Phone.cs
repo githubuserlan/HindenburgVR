@@ -18,13 +18,9 @@ public class Phone : MonoBehaviour
 
     public AudioSource Geschafft;
 
-
-    public GameObject Türknauf;
-
-
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.layer==12)
+        if (collision.gameObject.name == "Phone")
         {
             Anfang.Play();
         }
@@ -34,7 +30,7 @@ public class Phone : MonoBehaviour
             Menschenlos.Play();
         }
 
-        if (collision.gameObject == Türknauf)
+        if (collision.gameObject.name == "TürSchloss")
         { WoIstDietrich.Play(); }
 
         if (collision.gameObject.name == "Rad1")
@@ -43,8 +39,26 @@ public class Phone : MonoBehaviour
         }
         if (collision.gameObject.name == "Labirynth")
         {
-            Murmel.Play();
+            //Murmel.Play();
         }
 
+        //if(collision.gameObject.name=="PhoneGürtel")
+        //{
+        //    this.transform.position = collision.transform.position;
+        //    this.GetComponent<Rigidbody>().isKinematic = true;
+        //    PhoneGürtel = collision.gameObject;
+        //    collision.gameObject.SetActive(false);
+        //    Debug.Log("anGürtelRan");
+        //}
+
+    }
+
+    private void Update()
+    {
+        //if (RightHand.GetComponent<Inventory>().HitObject == this.gameObject && RightHand.GetComponent<Inventory>().gripButtonAction == true && PhoneGürtel!=null)
+        //{
+        //    this.GetComponent<Rigidbody>().isKinematic = false;
+        //    PhoneGürtel.SetActive(true);
+        //}
     }
 }

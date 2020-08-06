@@ -44,6 +44,7 @@ public class SchlossKnacken : MonoBehaviour
     public bool spawnedHands = false;
 
     public AudioSource RiddleDone;
+    public GameObject Door;
 
     // Start is called before the first frame update
     void Start()
@@ -68,7 +69,7 @@ public class SchlossKnacken : MonoBehaviour
             dietrichgrabed = true;
         }
         else { dietrichgrabed = false; }
-        dietrichgrabed = true;
+        //dietrichgrabed = true;
         if (dietrichgrabed == true && grabHand.GetComponent<Inventory>().triggerButtonAction == true)
         {
             if (spawnedHands == false)
@@ -140,7 +141,7 @@ public class SchlossKnacken : MonoBehaviour
                         RiddleDone.Play();
                         this.gameObject.AddComponent<Rigidbody>();
                         drehgelenk.SetActive(false);
-                        this.GetComponent<MeshRenderer>().enabled = false;
+                        //this.GetComponent<MeshRenderer>().enabled = false;
 
                     }
                 }
@@ -149,6 +150,7 @@ public class SchlossKnacken : MonoBehaviour
 
                 if (Level3 == true)
                 {
+                    Door.GetComponent<Animator>().Play("TürSchlossAnim");
                     Debug.Log("Schloss geknackt");
                 }
             }
@@ -210,7 +212,7 @@ public class SchlossKnacken : MonoBehaviour
         //Debug.Log(Pivot.transform.eulerAngles +"= global");
         if (Pivot.transform.localEulerAngles.z < 135 && Pivot.transform.localEulerAngles.z > 125)
         {
-            Debug.Log(Pivot.transform.localEulerAngles.z);
+            //Debug.Log(Pivot.transform.localEulerAngles.z);
 
 
         }

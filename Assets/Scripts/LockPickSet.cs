@@ -7,12 +7,12 @@ public class LockPickSet : MonoBehaviour
 
     public GameObject Schloss;
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)  
     {
-        if(collision.gameObject == Schloss)
+        if(other.gameObject.name== "TürSchloss")
         {
-            Schloss.transform.GetChild(0).gameObject.SetActive(true);
-            Schloss.transform.GetChild(1).gameObject.SetActive(true);
+            other.transform.GetChild(0).gameObject.SetActive(true);
+            Debug.Log("Dietrich hingesetzt0");
             Destroy(this.gameObject);
         }
     }

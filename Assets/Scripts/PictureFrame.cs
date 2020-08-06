@@ -13,7 +13,7 @@ public class PictureFrame : MonoBehaviour
     public static bool GrabedObject; //is frame grabbed?
     bool added;
     public GameObject Bilderrahmen;
-    bool BackFrameGrabedOnce;
+    public bool BackFrameGrabedOnce;
 
     public AudioSource RiddleDone;
 
@@ -73,7 +73,8 @@ public class PictureFrame : MonoBehaviour
 
         if(BackFrameGrabedOnce==true)
         {
-            if(RightHand.GetComponent<Inventory>().triggerButtonAction == false && LeftHand.GetComponent<Inventory>().triggerButtonAction == false)
+            Bilderrahmen.GetComponent<PictureFrame>().RiddleDone.Play();
+            if (RightHand.GetComponent<Inventory>().triggerButtonAction == false && LeftHand.GetComponent<Inventory>().triggerButtonAction == false)
             {
                 BackFrame.transform.parent = null;
                 BackFrame.GetComponent<Rigidbody>().isKinematic = false;
@@ -93,7 +94,6 @@ public class PictureFrame : MonoBehaviour
                 kid.AddComponent<BoxCollider>();
                 kid.AddComponent<XRGrabInteractable>();
                 BackFrameGrabedOnce = false;
-                RiddleDone.Play();
                 Destroy(this.GetComponent<PictureFrame>());
             }
         }
