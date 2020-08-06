@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Security.AccessControl;
 using System.Security.Cryptography;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -16,7 +17,7 @@ public class SchlossKnacken : MonoBehaviour
     public GameObject grabHand;
     public GameObject dietrich;
     Vector3 handRot;
-    bool dietrichgrabed;
+    public bool dietrichgrabed;
     public GameObject spawnObject;
     public GameObject HandTranslatorR;
     Vector3 savedPosition;
@@ -62,46 +63,46 @@ public class SchlossKnacken : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-            if (grabHand.GetComponent<Inventory>().HitObject == this.gameObject)
+        if (grabHand.GetComponent<Inventory>().HitObject == this.gameObject)
+        {
+            dietrichgrabed = true;
+        }
+        else { dietrichgrabed = false; }
+        dietrichgrabed = true;
+        if (dietrichgrabed == true && grabHand.GetComponent<Inventory>().triggerButtonAction == true)
+        {
+            if (spawnedHands == false)
             {
-                dietrichgrabed = true;
+                grabHand.transform.position = dietrich.transform.position;
+                spawnObject = Instantiate(HandTranslatorR);
+                spawnedHands = true; ;
             }
-            else { dietrichgrabed = false; }
-
-            if (dietrichgrabed == true && grabHand.GetComponent<Inventory>().triggerButtonAction == true)
+            grabHand.GetComponent<XRController>().enabled = false;
+            handRot.x = spawnObject.transform.eulerAngles.x;
+            savedPosition = grabHand.transform.position;
+            grabHand.transform.parent = Pivot.transform;
+            Pivot.transform.localEulerAngles = new Vector3(0, 0, handRot.x + 90);
+        }
+        else
+        {
+            if (spawnObject != null)
             {
-                if (spawnedHands == false)
+                grabHand.GetComponent<XRController>().enabled = true;
+                Destroy(spawnObject);
+                spawnedHands = false;
+                grabHand.transform.parent = Camera.transform;
+                if (savedPosition != zeroVector3)
                 {
-                    grabHand.transform.position = dietrich.transform.position;
-                    spawnObject = Instantiate(HandTranslatorR);
-                    spawnedHands = true; ;
-                }
-                grabHand.GetComponent<XRController>().enabled = false;
-                handRot.x = spawnObject.transform.eulerAngles.x;
-                savedPosition = grabHand.transform.position;
-                grabHand.transform.parent = Pivot.transform;
-                Pivot.transform.eulerAngles = new Vector3(handRot.x, handRot.y, 0);
-            }
-            else
-            {
-                if (spawnObject != null)
-                {
-                    grabHand.GetComponent<XRController>().enabled = true;
-                    Destroy(spawnObject);
-                    spawnedHands = false;
-                    grabHand.transform.parent = Camera.transform;
-                    if (savedPosition != zeroVector3)
-                    {
-                        grabHand.transform.position = savedPosition;
-                        savedPosition = zeroVector3;
-                    }
+                    grabHand.transform.position = savedPosition;
+                    savedPosition = zeroVector3;
                 }
             }
+        }
         if (Level3 != true)
         {
             if (dietrichgrabed == true)
             {
-                if (Pivot.transform.localEulerAngles.x < 125 && Pivot.transform.eulerAngles.x > 132.5f && Level1 == false && Level2 == false && Level3 == false)
+                if (Pivot.transform.localEulerAngles.z > 125 && Pivot.transform.localEulerAngles.z < 135 && Level1 == false && Level2 == false && Level3 == false)
                 {
                     if (triggerLevel1 == false)
                     {
@@ -115,7 +116,7 @@ public class SchlossKnacken : MonoBehaviour
                 else
                 { triggerLevel1 = false; }
 
-                if (Pivot.transform.eulerAngles.x < 85 && Pivot.transform.eulerAngles.x > 75 && Level1 == true && Level2 == false && Level3 == false)
+                if (Pivot.transform.localEulerAngles.z < 85 && Pivot.transform.localEulerAngles.z > 75 && Level1 == true && Level2 == false && Level3 == false)
                 {
                     if (triggerLevel2 == false)
                     {
@@ -128,7 +129,7 @@ public class SchlossKnacken : MonoBehaviour
                 else
                 { triggerLevel2 = false; }
 
-                if (Pivot.transform.localEulerAngles.x < 100 && Pivot.transform.eulerAngles.x > 120 && Level1 == true && Level2 == true && Level3 == false)
+                if (Pivot.transform.localEulerAngles.z < 120 && Pivot.transform.localEulerAngles.z > 100 && Level1 == true && Level2 == true && Level3 == false)
                 {
                     if (triggerLevel3 == false)
                     {
@@ -140,7 +141,7 @@ public class SchlossKnacken : MonoBehaviour
                         this.gameObject.AddComponent<Rigidbody>();
                         drehgelenk.SetActive(false);
                         this.GetComponent<MeshRenderer>().enabled = false;
-                        
+
                     }
                 }
                 else
@@ -204,5 +205,19 @@ public class SchlossKnacken : MonoBehaviour
         //        levelDone.Play();
         //    }
         //}
+
+
+        //Debug.Log(Pivot.transform.eulerAngles +"= global");
+        if (Pivot.transform.localEulerAngles.z < 135 && Pivot.transform.localEulerAngles.z > 125)
+        {
+            Debug.Log(Pivot.transform.localEulerAngles.z);
+
+
+        }
+
+
+
+
+
     }
 }

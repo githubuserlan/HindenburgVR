@@ -35,7 +35,7 @@ public class Doorweel : MonoBehaviour
             //this.GetComponent<HingeJoint>().useLimits = true;
             //Hinge.axis = new Vector3(0, 0, 1);
             Debug.Log("trigger");
-            this.transform.eulerAngles = new Vector3(0, 0, 270);
+            this.transform.eulerAngles = new Vector3(0, 90, 0);
             this.gameObject.layer = 0;
             this.GetComponent<Rigidbody>().isKinematic = true;
             RiddleDone.Play();
@@ -59,19 +59,19 @@ public class Doorweel : MonoBehaviour
         if (snaped == true)
         {
             this.gameObject.transform.position = Aposition;
-            desiredRotz = this.transform.localEulerAngles.z;
-            if (this.transform.localEulerAngles.x != 0 || this.transform.localEulerAngles.y != 0)
+            desiredRotz = this.transform.eulerAngles.z;
+            if (this.transform.eulerAngles.x != 0 || this.transform.eulerAngles.y != 0)
             {
-                this.transform.localEulerAngles = new Vector3(0, 0, desiredRotz);
+                this.transform.eulerAngles = new Vector3(0, 90, desiredRotz);
             }
 
-            if (this.transform.localEulerAngles.z > 270)
-            { this.transform.localEulerAngles = new Vector3(0, 0, 270f); }
-            if (this.transform.localEulerAngles.z < 90)
-            { this.transform.localEulerAngles = new Vector3(0, 0, 90f); }
+            if (this.transform.eulerAngles.z > 270)
+            { this.transform.eulerAngles = new Vector3(0, 90, 270f); }
+            if (this.transform.eulerAngles.z < 90)
+            { this.transform.eulerAngles = new Vector3(0, 90, 90f); }
 
 
-            if (this.transform.localEulerAngles.z <= 95 && opened==false)
+            if (this.transform.eulerAngles.z <= 95 && opened==false)
             { openDoor(); opened = true; }
         }
     }

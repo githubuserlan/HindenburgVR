@@ -21,14 +21,14 @@ public class Phone : MonoBehaviour
 
     public GameObject Türknauf;
 
-    // Update is called once per frame
-    private void Start()
-    {
-        Anfang.Play();
-    }
 
     private void OnCollisionEnter(Collision collision)
     {
+        if(collision.gameObject.layer==12)
+        {
+            Anfang.Play();
+        }
+
         if (collision.gameObject.name == "Menschenlos")
         {
             Menschenlos.Play();

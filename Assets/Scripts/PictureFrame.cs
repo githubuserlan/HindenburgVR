@@ -110,6 +110,7 @@ public class PictureFrame : MonoBehaviour
             BackFrame.AddComponent<Rigidbody>();
             BackFrame.GetComponent<Rigidbody>().isKinematic = true;
             GrabedObject = true;
+            Debug.Log("Grabed");
         }
     }
 

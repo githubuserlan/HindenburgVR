@@ -56,7 +56,7 @@ public class DietrichObject2 : MonoBehaviour
                 dietrichgrabed = true;
             }
             else { dietrichgrabed = false; }
-
+        dietrichgrabed = true;
             if (dietrichgrabed == true && grabHand.GetComponent<Inventory>().triggerButtonAction == true)
             {
                 if (spawnedHands == false)
@@ -69,7 +69,7 @@ public class DietrichObject2 : MonoBehaviour
                 handRot.y = spawnObject.transform.eulerAngles.z+90;
                 savedPosition = grabHand.transform.position;
                 grabHand.transform.parent = ChildHandNull.transform;
-                drehgelenk.transform.localEulerAngles = new Vector3(0, handRot.y, 0);
+                drehgelenk.transform.localEulerAngles = new Vector3(handRot.y, 0,0);
             }
             else
             {
@@ -89,19 +89,19 @@ public class DietrichObject2 : MonoBehaviour
 
         if (Level3 != true)
         {
-            if (TriggerLevel1 == true && drehgelenk.transform.localEulerAngles.y <= 80)
+            if (TriggerLevel1 == true && drehgelenk.transform.localEulerAngles.x >= 10)
             {
                 levelDone.Play();
                 dietrich.GetComponent<SchlossKnacken>().Level1 = true;
                 Debug.Log("Level1Clear");
             }
-            if (TriggerLevel2 == true && drehgelenk.transform.localEulerAngles.y <= 45)
+            if (TriggerLevel2 == true && drehgelenk.transform.localEulerAngles.x >= 45)
             {
                 levelDone.Play();
                 dietrich.GetComponent<SchlossKnacken>().Level2 = true;
                 Debug.Log("Level2Clear");
             }
-            if (TriggerLevel3 == true && drehgelenk.transform.localEulerAngles.y <= 15)
+            if (TriggerLevel3 == true && drehgelenk.transform.localEulerAngles.x >= 80)
             {
                 levelDone.Play();
                 dietrich.GetComponent<SchlossKnacken>().Level3 = true;
@@ -115,29 +115,29 @@ public class DietrichObject2 : MonoBehaviour
             //    drehgelenk.transform.eulerAngles = Rot;
             //}
 
-            if (drehgelenk.transform.localEulerAngles.y <= 80)
+            if (drehgelenk.transform.localEulerAngles.x >= 9)
             {
                 if (TriggerLevel1 == false && Level1 == false)
                 {
-                    drehgelenk.transform.localEulerAngles = new Vector3(0, 80, 0);
+                    drehgelenk.transform.localEulerAngles = new Vector3(9, 0, 0);
                 }
             }
-            if (drehgelenk.transform.localEulerAngles.y > 90)
+            if (drehgelenk.transform.localEulerAngles.x > 90)
             {
-                drehgelenk.transform.localEulerAngles = new Vector3(0, 90, 0);
+                drehgelenk.transform.localEulerAngles = new Vector3(90, 0, 0);
             }
-            if (drehgelenk.transform.localEulerAngles.y <= 70)
+            if (drehgelenk.transform.localEulerAngles.x >= 50)
             {
                 if (TriggerLevel2 == false && Level2 == false)
                 {
-                    drehgelenk.transform.localEulerAngles = new Vector3(0, 70, 0);
+                    drehgelenk.transform.localEulerAngles = new Vector3(50, 0, 0);
                 }
             }
-            if (drehgelenk.transform.localEulerAngles.y <= 30)
+            if (drehgelenk.transform.localEulerAngles.x >= 82)
             {
                 if (TriggerLevel3 == false && Level3 == false)
                 {
-                    drehgelenk.transform.localEulerAngles = new Vector3(0, 30, 0);
+                    drehgelenk.transform.localEulerAngles = new Vector3(82, 0, 0);
                 }
             }
         }
@@ -145,5 +145,7 @@ public class DietrichObject2 : MonoBehaviour
         {
             this.gameObject.AddComponent<Rigidbody>();
         }
+
+        Debug.Log(drehgelenk.transform.localEulerAngles);
     }
 }
