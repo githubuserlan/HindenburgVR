@@ -12,6 +12,7 @@ public class LockPickSet : MonoBehaviour
         if(other.gameObject.name== "TürSchloss")
         {
             other.transform.GetChild(0).gameObject.SetActive(true);
+            other.transform.GetChild(1).gameObject.SetActive(true);
             Debug.Log("Dietrich hingesetzt0");
             Destroy(this.gameObject);
         }

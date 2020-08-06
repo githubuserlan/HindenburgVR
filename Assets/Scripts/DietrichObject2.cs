@@ -42,6 +42,8 @@ public class DietrichObject2 : MonoBehaviour
 
     void Update()
     {
+        if (dietrich != null)
+        {
             TriggerLevel1 = dietrich.GetComponent<SchlossKnacken>().triggerLevel1;
             TriggerLevel2 = dietrich.GetComponent<SchlossKnacken>().triggerLevel2;
             TriggerLevel3 = dietrich.GetComponent<SchlossKnacken>().triggerLevel3;
@@ -49,43 +51,43 @@ public class DietrichObject2 : MonoBehaviour
             Level1 = dietrich.GetComponent<SchlossKnacken>().Level1;
             Level2 = dietrich.GetComponent<SchlossKnacken>().Level2;
             Level3 = dietrich.GetComponent<SchlossKnacken>().Level3;
+        }
 
-
-            if (grabHand.GetComponent<Inventory>().HitObject == this.gameObject)
-            {
-                dietrichgrabed = true;
-            }
-            else { dietrichgrabed = false; }
+        if (grabHand.GetComponent<Inventory>().HitObject == this.gameObject)
+        {
+            dietrichgrabed = true;
+        }
+        else { dietrichgrabed = false; }
         //dietrichgrabed = true;
-            if (dietrichgrabed == true && grabHand.GetComponent<Inventory>().triggerButtonAction == true)
+        if (dietrichgrabed == true && grabHand.GetComponent<Inventory>().triggerButtonAction == true)
+        {
+            if (spawnedHands == false)
             {
-                if (spawnedHands == false)
-                {
-                    grabHand.transform.position = ChildHandNull.transform.position;
-                    spawnObject = Instantiate(HandTranslatorR);
-                    spawnedHands = true;
-                }
-                grabHand.GetComponent<XRController>().enabled = false;
-                handRot.y = spawnObject.transform.eulerAngles.z+90;
-                savedPosition = grabHand.transform.position;
-                grabHand.transform.parent = ChildHandNull.transform;
-                drehgelenk.transform.localEulerAngles = new Vector3(handRot.y, 0,0);
+                grabHand.transform.position = ChildHandNull.transform.position;
+                spawnObject = Instantiate(HandTranslatorR);
+                spawnedHands = true;
             }
-            else
+            grabHand.GetComponent<XRController>().enabled = false;
+            handRot.y = spawnObject.transform.eulerAngles.z;
+            savedPosition = grabHand.transform.position;
+            grabHand.transform.parent = ChildHandNull.transform;
+            drehgelenk.transform.localEulerAngles = new Vector3(handRot.y, 0, 0);
+        }
+        else
+        {
+            if (spawnObject != null)
             {
-                if (spawnObject != null)
+                grabHand.GetComponent<XRController>().enabled = true;
+                Destroy(spawnObject);
+                spawnedHands = false;
+                grabHand.transform.parent = Camera.transform;
+                if (savedPosition != zeroVector3)
                 {
-                    grabHand.GetComponent<XRController>().enabled = true;
-                    Destroy(spawnObject);
-                    spawnedHands = false;
-                    grabHand.transform.parent = Camera.transform;
-                    if (savedPosition != zeroVector3)
-                    {
-                        grabHand.transform.position = savedPosition;
-                        savedPosition = zeroVector3;
-                    }
+                    grabHand.transform.position = savedPosition;
+                    savedPosition = zeroVector3;
                 }
             }
+        }
 
         if (Level3 != true)
         {
@@ -104,6 +106,18 @@ public class DietrichObject2 : MonoBehaviour
             if (TriggerLevel3 == true && drehgelenk.transform.localEulerAngles.x >= 80)
             {
                 levelDone.Play();
+
+                grabHand.GetComponent<XRController>().enabled = true;
+                Destroy(spawnObject);
+                spawnedHands = false;
+                grabHand.transform.parent = Camera.transform;
+                if (savedPosition != zeroVector3)
+                {
+                    grabHand.transform.position = savedPosition;
+                    savedPosition = zeroVector3;
+                }
+
+
                 dietrich.GetComponent<SchlossKnacken>().Level3 = true;
                 Debug.Log("Level3Clear");
             }
@@ -115,22 +129,30 @@ public class DietrichObject2 : MonoBehaviour
             //    drehgelenk.transform.eulerAngles = Rot;
             //}
 
+            //if (drehgelenk.transform.localEulerAngles.x >= 0.5f)
+            //{
+            //    drehgelenk.transform.localEulerAngles = new Vector3(0.5f, 0, 0);
+            //    Debug.Log("Force0");
+            //}
             if (drehgelenk.transform.localEulerAngles.x >= 9)
             {
                 if (TriggerLevel1 == false && Level1 == false)
                 {
                     drehgelenk.transform.localEulerAngles = new Vector3(9, 0, 0);
+                    Debug.Log("Force9");
                 }
             }
             if (drehgelenk.transform.localEulerAngles.x > 90)
             {
                 drehgelenk.transform.localEulerAngles = new Vector3(90, 0, 0);
+                Debug.Log("Force90");
             }
             if (drehgelenk.transform.localEulerAngles.x >= 50)
             {
                 if (TriggerLevel2 == false && Level2 == false)
                 {
                     drehgelenk.transform.localEulerAngles = new Vector3(50, 0, 0);
+                    Debug.Log("Force50");
                 }
             }
             if (drehgelenk.transform.localEulerAngles.x >= 82)
@@ -150,7 +172,7 @@ public class DietrichObject2 : MonoBehaviour
                 Pivot.gameObject.AddComponent<Rigidbody>();
                 Door.GetComponent<Animator>().Play("TürSchlossAnim");
                 Debug.Log("Schloss geknackt");
-                i = 1;
+                i = 0;
             }
         }
 

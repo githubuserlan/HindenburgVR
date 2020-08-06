@@ -130,12 +130,12 @@ public class Numberlock : MonoBehaviour
             HandSpawn2(RightHand, RightGrip, this.gameObject);
             //Debug.Log("StartRight");
         }
-        //if (this.transform.localEulerAngles.y % 40 == 0 && Click.enabled == true)
-        //{
-        //    Click.Play();
-        //    Debug.Log("Click");
-        //    Click.enabled = false;
-        //}
+        if (this.transform.localEulerAngles.y % 40 == 0 && Click.enabled == true)
+        {
+            Click.Play();
+            Debug.Log("Click");
+            Click.enabled = false;
+        }
 
         if (N1.transform.localEulerAngles.y == 200 && N2.transform.localEulerAngles.y == 160 && N3.transform.localEulerAngles.y == 280 && N4.transform.localEulerAngles.y == 80 && DiamomdIn == true)
         {
@@ -147,15 +147,9 @@ public class Numberlock : MonoBehaviour
             //N4.transform.parent.gameObject.AddComponent<Rigidbody>();
             //DiamomdIn = false;
             RiddleDone.Play();
-            if (ChestTopAnchor.GetComponent<Animation>().isPlaying == false)
-            {
-                ChestTopAnchor.GetComponent<Animation>().Play();
-            }
+            ChestTopAnchor.GetComponent<Animator>().Play("OpenChest");
+
             Debug.Log("Lock geöffnet");
-            if (Phone != null)
-            {
-                Phone.GetComponent<Phone>().Geschafft.Play();
-            }
             Destroy(this.GetComponent<Numberlock>());
         }
         //Code ist 1937
@@ -165,7 +159,7 @@ public class Numberlock : MonoBehaviour
     {
         if (Grip == true)
         {
-            //Click.enabled = true;
+            Click.enabled = true;
             Hand.GetComponent<XRController>().enabled = false;
             handRot.y = spawnObject.transform.localEulerAngles.x;
             savedPosition = Hand.transform.position;
@@ -174,7 +168,7 @@ public class Numberlock : MonoBehaviour
         }
         else
         {
-            //Click.enabled = false;
+            Click.enabled = false;
             StartRot = this.transform.localEulerAngles.y;
             SavedRot = 0;
             if (spawnObject != null)

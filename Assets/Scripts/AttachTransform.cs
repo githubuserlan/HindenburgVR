@@ -35,14 +35,14 @@ public class AttachTransform : MonoBehaviour
             }
             else
             {
-                if (ObjectGrabed.transform.GetChild(0) != null)
-                {
-                    if (ObjectGrabed.transform.GetChild(0).gameObject.GetComponent<XRGrabInteractable>() != null)
-                    {
-                        ObjectGrabed.transform.GetChild(0).GetComponent<XRGrabInteractable>().attachTransform = this.gameObject.transform.GetChild(0).gameObject.transform;
+                //if (ObjectGrabed.transform.GetChild(0) != null)
+                //{
+                //    if (ObjectGrabed.transform.GetChild(0).gameObject.GetComponent<XRGrabInteractable>() != null)
+                //    {
+                //        ObjectGrabed.transform.GetChild(0).GetComponent<XRGrabInteractable>().attachTransform = this.gameObject.transform.GetChild(0).gameObject.transform;
 
-                    }
-                }
+                //    }
+                //}
             }
         }
         if (LeftHand.GetComponent<Inventory>().HitObject == RightHand.GetComponent<Inventory>().HitObject && LeftHand.GetComponent<Inventory>().gripButtonAction == true && ObjectGrabed != null)

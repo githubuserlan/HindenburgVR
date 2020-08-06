@@ -33,6 +33,16 @@ public class Inventory : MonoBehaviour
     public GameObject MovementTypeKinematic;
     public GameObject MovementTypeVelocity;
 
+
+    private void Start()
+    {
+        leftInventoryPlace = preFabInventoryItems[3];
+        
+        spawnObject = preFabInventoryItems[3];
+
+        ObjectScale = new Vector3(1, 1, 1);
+    }
+
     void GetDevice()
     {
         InputDevices.GetDevicesAtXRNode(xrNode, devices);

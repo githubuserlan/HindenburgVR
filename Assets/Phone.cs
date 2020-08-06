@@ -6,40 +6,52 @@ public class Phone : MonoBehaviour
 {
 
     public AudioSource Anfang;
-
+    bool AnfangPlayed;
 
     public AudioSource Menschenlos;
-
+    bool MenschenlosPlayed;
     public AudioSource WoIstDietrich;
-
+    bool WoIstDietrichPlayed;
     public AudioSource SchatzCode;
-
+    bool SchatzCodePlayed;
     public AudioSource Murmel;
-
+    bool MurmelPlayed;
     public AudioSource Geschafft;
+    bool GeschafftPlayed;
 
-    private void OnCollisionEnter(Collision collision)
+
+    private void OnTriggerEnter(Collider collision)
+
+
+
     {
-        if (collision.gameObject.name == "Phone")
+        if (collision.gameObject.name == "Phone" && AnfangPlayed == false)
         {
             Anfang.Play();
+            AnfangPlayed = true;
         }
 
-        if (collision.gameObject.name == "Menschenlos")
+        if (collision.gameObject.name == "Menschenlos" && MenschenlosPlayed == false)
         {
             Menschenlos.Play();
+            MenschenlosPlayed = true;
         }
 
-        if (collision.gameObject.name == "TürSchloss")
-        { WoIstDietrich.Play(); }
+        if (collision.gameObject.name == "TürSchloss" && WoIstDietrichPlayed == false)
+        {
+            WoIstDietrich.Play();
+            WoIstDietrichPlayed = true;
+        }
 
-        if (collision.gameObject.name == "Rad1")
+        if (collision.gameObject.name == "Rad1"&&SchatzCodePlayed==false)
         {
             SchatzCode.Play();
+            SchatzCodePlayed = true;
         }
-        if (collision.gameObject.name == "Labirynth")
+        if (collision.gameObject.name == "Labirynth" && MurmelPlayed==false)
         {
             //Murmel.Play();
+            MurmelPlayed = true;
         }
 
         //if(collision.gameObject.name=="PhoneGürtel")

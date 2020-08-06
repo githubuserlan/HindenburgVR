@@ -76,7 +76,7 @@ public class SchlossKnacken : MonoBehaviour
             {
                 grabHand.transform.position = dietrich.transform.position;
                 spawnObject = Instantiate(HandTranslatorR);
-                spawnedHands = true; ;
+                spawnedHands = true;
             }
             grabHand.GetComponent<XRController>().enabled = false;
             handRot.x = spawnObject.transform.eulerAngles.x;
@@ -140,19 +140,16 @@ public class SchlossKnacken : MonoBehaviour
                         triggerLevel3 = true;
                         RiddleDone.Play();
                         this.gameObject.AddComponent<Rigidbody>();
-                        drehgelenk.SetActive(false);
+                        //drehgelenk.SetActive(false);
+                        //drehgelenk.
                         //this.GetComponent<MeshRenderer>().enabled = false;
+                        Door.GetComponent<Animator>().Play("TürSchlossAnim");
+                        Debug.Log("Schloss geknackt");
 
                     }
                 }
                 else
                 { triggerLevel3 = false; }
-
-                if (Level3 == true)
-                {
-                    Door.GetComponent<Animator>().Play("TürSchlossAnim");
-                    Debug.Log("Schloss geknackt");
-                }
             }
 
 
@@ -170,7 +167,9 @@ public class SchlossKnacken : MonoBehaviour
 
             //Debug.Log(Pivot.transform.eulerAngles.x);
         }
-        else { }
+        else
+        {
+        }
 
         //IEnumerator FirstClick()
         //{

@@ -27,18 +27,21 @@ public class BallLock : MonoBehaviour
     // Update is called once per frame
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name == "Lock-Collision")
+        if (collision.gameObject == BallBox)
         {
             Debug.Log("trigger");
             this.transform.position = BallBox.transform.position;
             Aposition = BallBox.transform.position;
+            BallBox.GetComponent<Collider>().enabled = false;
             this.transform.eulerAngles = new Vector3(0, 0, 270);
             this.gameObject.layer = 0;
+            Debug.Log("RIgidBody");
             this.GetComponent<Rigidbody>().isKinematic = true;
-            //this.GetComponent<Rigidbody>().useGravity = false;
+            Debug.Log(this.GetComponent<Rigidbody>().isKinematic);
+            this.GetComponent<Rigidbody>().useGravity = false;
+            Debug.Log(this.GetComponent<Rigidbody>().useGravity);
             snaped = true;
-            BallBox.SetActive(false);
-            Rad.GetComponent<Numberlock>().DiamomdIn = true;
+            GameObject.Find("Rad1").GetComponent<Numberlock>().DiamomdIn = true;
         }
 
         //CollisionSound:
