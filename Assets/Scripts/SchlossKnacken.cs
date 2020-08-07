@@ -42,7 +42,7 @@ public class SchlossKnacken : MonoBehaviour
     public AudioSource levelDone;
 
     public bool spawnedHands = false;
-
+    public AudioSource DoorOpen;
     public AudioSource RiddleDone;
     public GameObject Door;
 
@@ -139,6 +139,7 @@ public class SchlossKnacken : MonoBehaviour
                         //StartCoroutine(ThirdClick());
                         triggerLevel3 = true;
                         RiddleDone.Play();
+                        DoorOpen.Play();
                         this.gameObject.AddComponent<Rigidbody>();
                         //drehgelenk.SetActive(false);
                         //drehgelenk.

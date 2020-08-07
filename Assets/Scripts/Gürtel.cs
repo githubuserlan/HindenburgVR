@@ -10,7 +10,7 @@ public class Gürtel : MonoBehaviour
     // Start is called before the first frame update
     void Update()
     {
-        float temp = Camera.gameObject.transform.position.y;
+        float temp = Camera.gameObject.transform.localPosition.y;
         this.gameObject.transform.position = Camera.gameObject.transform.position - new Vector3(0,temp -heightguertel, 0);
         float rotationy = this.gameObject.transform.eulerAngles.y;
         float rotationz = this.gameObject.transform.eulerAngles.z;

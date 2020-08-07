@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2322324877359717828}
   - component: {fileID: 7989122775850247961}
   - component: {fileID: 6827963923332230740}
+  - component: {fileID: 7909075435708110121}
   m_Layer: 0
   m_Name: back
   m_TagString: Untagged
@@ -79,6 +80,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &7909075435708110121
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2103196974152555695}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -5410104721861512981, guid: a0112a516b99a2d47b0232a5f3ef9cbd, type: 3}
 --- !u!1 &5585617751602284815
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,6 +217,7 @@ GameObject:
   - component: {fileID: 2288560460598510446}
   - component: {fileID: 4950670870674445329}
   - component: {fileID: 920107809447287756}
+  - component: {fileID: 1690838110971311769}
   m_Layer: 0
   m_Name: seat
   m_TagString: Untagged
@@ -270,3 +286,17 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &1690838110971311769
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8411856543774004543}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1438421871309224668, guid: a0112a516b99a2d47b0232a5f3ef9cbd, type: 3}

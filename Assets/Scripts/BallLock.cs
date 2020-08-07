@@ -7,7 +7,7 @@ public class BallLock : MonoBehaviour
     // Start is called before the first frame update
 
     // Start is called before the first frame update
-    bool snaped = false;
+    public bool snaped = false;
     public GameObject BallBox;
     Vector3 Aposition;
     float desiredRotz;
@@ -24,12 +24,20 @@ public class BallLock : MonoBehaviour
     public AudioSource rollingBall;
     public AudioSource stoppingBall;
 
+    private void Start()
+    {
+        BallBox=GameObject.Find("LockCollision");
+        Rad = GameObject.Find("Rad1");
+    }
+
     // Update is called once per frame
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject == BallBox)
+        if (collision.gameObject.name == "LockCollision")
         {
+            BallBox=collision.gameObject;
             Debug.Log("trigger");
+            Rad.GetComponent<Numberlock>().DiamomdIn = true;
             this.transform.position = BallBox.transform.position;
             Aposition = BallBox.transform.position;
             BallBox.GetComponent<Collider>().enabled = false;
@@ -41,7 +49,6 @@ public class BallLock : MonoBehaviour
             this.GetComponent<Rigidbody>().useGravity = false;
             Debug.Log(this.GetComponent<Rigidbody>().useGravity);
             snaped = true;
-            GameObject.Find("Rad1").GetComponent<Numberlock>().DiamomdIn = true;
         }
 
         //CollisionSound:
@@ -66,5 +73,12 @@ public class BallLock : MonoBehaviour
         }
         else
         { }
+
+        if (snaped == true && Rad.GetComponent<Numberlock>() != null)
+        {
+            this.transform.position = BallBox.transform.position;
+            Rad.GetComponent<Numberlock>().DiamomdIn = true;
+            
+        }
     }
 }

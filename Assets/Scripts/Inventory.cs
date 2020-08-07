@@ -36,11 +36,11 @@ public class Inventory : MonoBehaviour
 
     private void Start()
     {
-        leftInventoryPlace = preFabInventoryItems[3];
+        //leftInventoryPlace = preFabInventoryItems[3];
         
-        spawnObject = preFabInventoryItems[3];
+        //spawnObject = preFabInventoryItems[3];
 
-        ObjectScale = new Vector3(1, 1, 1);
+        //ObjectScale = new Vector3(1, 1, 1);
     }
 
     void GetDevice()
